@@ -27,4 +27,8 @@
 9.任務列表，並可依優先順序、開始時間及結束時間等進行排序
   20200121=>進度為步驟五，於步驟十六完成此功能。
 
+Model關聯＝>
+![image](https://github.com/ck100pro/five_trial/blob/topic/docs/Mosel%E9%97%9C%E8%81%AF%E5%9C%96.png)
 
+Model欄位=>
+![image](https://github.com/ck100pro/five_trial/blob/topic/docs/Model%E6%AC%84%E4%BD%8D.png)
