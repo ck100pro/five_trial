@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_30_141908) do
+ActiveRecord::Schema.define(version: 2020_01_31_113726) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,15 @@ ActiveRecord::Schema.define(version: 2020_01_30_141908) do
     t.index ["title"], name: "index_boards_on_title", unique: true
   end
 
+  create_table "card_tags", force: :cascade do |t|
+    t.bigint "card_id", null: false
+    t.bigint "tag_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["card_id"], name: "index_card_tags_on_card_id"
+    t.index ["tag_id"], name: "index_card_tags_on_tag_id"
+  end
+
   create_table "cards", force: :cascade do |t|
     t.string "title", default: "", null: false
     t.integer "position"
@@ -33,15 +42,6 @@ ActiveRecord::Schema.define(version: 2020_01_30_141908) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["list_id"], name: "index_cards_on_list_id"
     t.index ["title"], name: "index_cards_on_title", unique: true
-  end
-
-  create_table "crad_tags", force: :cascade do |t|
-    t.bigint "card_id", null: false
-    t.bigint "tag_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["card_id"], name: "index_crad_tags_on_card_id"
-    t.index ["tag_id"], name: "index_crad_tags_on_tag_id"
   end
 
   create_table "lists", force: :cascade do |t|
@@ -59,6 +59,8 @@ ActiveRecord::Schema.define(version: 2020_01_30_141908) do
     t.string "color", default: ""
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "board_id", null: false
+    t.index ["board_id"], name: "index_tags_on_board_id"
     t.index ["title"], name: "index_tags_on_title", unique: true
   end
 
@@ -92,9 +94,9 @@ ActiveRecord::Schema.define(version: 2020_01_30_141908) do
     t.index ["user_password"], name: "index_users_on_user_password", unique: true
   end
 
+  add_foreign_key "card_tags", "cards"
+  add_foreign_key "card_tags", "tags"
   add_foreign_key "cards", "lists"
-  add_foreign_key "crad_tags", "cards"
-  add_foreign_key "crad_tags", "tags"
   add_foreign_key "lists", "boards"
   add_foreign_key "user_boards", "boards"
   add_foreign_key "user_boards", "users"
