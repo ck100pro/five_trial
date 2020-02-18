@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="h-full">
   <head>
     <title>FiveTrial</title>
     <%= csrf_meta_tags %>
@@ -9,7 +9,15 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
-    <%= yield %>
+  <body class="h-full">
+    <div class="h-full flex flex-col ">
+      <div class="w-full h-auto">
+        <%= render "shared/navbar" %>
+      </div>
+
+      <div class="flex-grow">
+        <%= yield %>
+      </div>
+    </div>
   </body>
 </html>
