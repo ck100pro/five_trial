@@ -24,7 +24,7 @@
 
 import TurbolinksAdapter from 'vue-turbolinks'
 import Vue from 'vue/dist/vue.esm'
-import App from '../app.vue'
+import CreateBoard from '../templete/createboard.vue'
 
 Vue.use(TurbolinksAdapter)
 
@@ -35,4 +35,12 @@ document.addEventListener('turbolinks:load', () => {
   // document.body.appendChild(app.$el)
 
   // console.log(app)
+  const createBoard = new Vue({
+    el: "#createBoard",
+    methods: {
+      boardView: function(event){
+        console.log(event)
+      }
+    }
+  })
 })
