@@ -7,6 +7,6 @@ class AddListTable < ActiveRecord::Migration[6.0]
 
       t.timestamps null: false
     end
-    add_index :lists, :title, unique: true
+    add_index :lists, :title
   end
 end

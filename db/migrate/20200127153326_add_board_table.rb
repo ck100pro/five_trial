@@ -6,7 +6,7 @@ class AddBoardTable < ActiveRecord::Migration[6.0]
 
       t.timestamps null: false
     end
-    add_index :boards, :title,  unique: true
-    add_index :boards, :status, unique: true
+    add_index :boards, :title
+    add_index :boards, :status
   end
 end
