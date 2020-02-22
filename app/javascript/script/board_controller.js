@@ -7,10 +7,8 @@ document.addEventListener('turbolinks:load', () => {
     // console.log(app)
     const createBoard = new Vue({
       el: "#createBoard",
-      methods: {
-        boardView: function(event){
-          console.log(event)
-        }
+      data: {
+        boardVisible: false
       }
     })
   })

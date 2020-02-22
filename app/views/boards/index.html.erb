@@ -1,18 +1,21 @@
 <div id="createBoard" >
-  <div v-on:click="boardView" class="w-16 h-16 bg-gray-500 cursor-pointer">新增看板</div>
+  <div @click="boardVisible = !boardVisible" class="w-16 h-16 bg-gray-500 cursor-pointer">新增看板</div>
+
+  <div @click="boardVisible = !boardVisible" v-show="boardVisible" class="fixed w-full h-full left-0 top-0 bg-gray-500 opacity-50 flex justify-center items-center">
+    <div @click.stop class="w-4/12 h-56 bg-red-100 rounded">
+      <div @click="boardVisible = !boardVisible" class="text-right cursor-pointer"><i class="fas fa-times"></i></div>
+      <%= form_with model: @board do |board| %>
+        <%= board.text_field :title, class: "h-8 w-56 border-black border-solid border-2 rounded" %>
+        <%= board.submit %>
+      <% end %>
+    </div>
+  </div>
+
 </div>
 
 <p><%= flash[:notice] if notice %></p>
 
-<div id="board-model" class="fixed w-full h-full left-0 top-0 bg-gray-500 opacity-50 flex justify-center items-center">
-  <div class="w-4/12 h-56 bg-red-100 rounded">
-    <div id="cancel-a" class="text-right cursor-pointer"><i class="fas fa-times"></i></div>
-    <%= form_with model:@board do |board| %>
-      <%= board.text_field :title, class: "h-8 w-56 border-black border-solid border-2 rounded" %>
-      <%= board.submit %>
-    <% end %>
-  </div>
-</div>
+
 
 
 
