@@ -1,5 +1,3 @@
-
-
 <div id="boardItems" >
   <div class="flex">
     <div>
@@ -11,7 +9,6 @@
     </div>
   </div>
 
-
   <div @click="boardVisible = !boardVisible" v-show="boardVisible" class="w-full h-full left-0 top-0 bg-gray-500 opacity-50 fixed flex justify-center items-center">
     <div @click.stop class="w-4/12 h-56 bg-red-100 rounded">
       <div @click="boardVisible = !boardVisible" class="text-right cursor-pointer"><i class="fas fa-times"></i></div>
@@ -22,12 +19,3 @@
     </div>
   </div>
 </div>
-
-<p><%= flash[:notice] if notice %></p>
-
-
-
-
-
-
-

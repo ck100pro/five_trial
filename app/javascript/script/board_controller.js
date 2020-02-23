@@ -3,11 +3,6 @@ document.addEventListener('DOMContentLoaded', () => {
     el: "#boardItems",
     data: {
       boardVisible: false
-    },
-    methods: {
-      a(){
-        return console.log(this.boardVisible)
-      }
     }
   })
 })

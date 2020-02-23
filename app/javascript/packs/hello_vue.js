@@ -16,12 +16,3 @@
 
 //   console.log(app)
 // })
-
-
-// If the project is using turbolinks, install 'vue-turbolinks':
-// yarn add vue-turbolinks
-// Then uncomment the code block below:
-
-
-
-

@@ -9,8 +9,12 @@ class BoardsController < ApplicationController
   def create
     board = Board.new(board_params)
     if board.save
-      redirect_to root_path, {notice: "board建立成功"}
+      redirect_to board_path(board.id), {notice: "board建立成功"}
     end
+  end
+
+  def show
+
   end
 
   private
