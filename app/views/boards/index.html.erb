@@ -1,11 +1,16 @@
-<div>
-  <%= render :partial => "boards", :collection => @boards %>
-</div>
+
 
 <div id="boardItems" >
-  <div @click.stop="boardVisible = !boardVisible" class="board-button">
-    <span >新增看板</span>
+  <div class="flex">
+    <div>
+      <%= render :partial => "boards", :collection => @boards %>
+    </div>
+
+    <div @click="boardVisible = !boardVisible" class="board-button">
+      <span >新增看板</span>
+    </div>
   </div>
+
 
   <div @click="boardVisible = !boardVisible" v-show="boardVisible" class="w-full h-full left-0 top-0 bg-gray-500 opacity-50 fixed flex justify-center items-center">
     <div @click.stop class="w-4/12 h-56 bg-red-100 rounded">
