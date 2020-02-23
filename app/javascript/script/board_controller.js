@@ -5,10 +5,15 @@ document.addEventListener('turbolinks:load', () => {
     // document.body.appendChild(app.$el)
   
     // console.log(app)
-    const createBoard = new Vue({
-      el: "#createBoard",
+    const boardItems = new Vue({
+      el: "#boardItems",
       data: {
         boardVisible: false
+      },
+      methods: {
+        a(){
+          return console.log(this.boardVisible)
+        }
       }
     })
   })

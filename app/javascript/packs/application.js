@@ -13,8 +13,8 @@ import '../css'
 import '../script'
 import TurbolinksAdapter from 'vue-turbolinks'
 import Vue from 'vue/dist/vue.esm'
-Vue.use(TurbolinksAdapter)
-global.Vue = Vue;
+
+global.Vue = Vue.use(TurbolinksAdapter);
 
 
 // Uncomment to copy all static images under ../images to the output folder and reference

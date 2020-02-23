@@ -1,7 +1,13 @@
-<div id="createBoard" >
-  <div @click="boardVisible = !boardVisible" class="w-16 h-16 bg-gray-500 cursor-pointer">新增看板</div>
+<div>
+  <%= render :partial => "boards", :collection => @boards %>
+</div>
 
-  <div @click="boardVisible = !boardVisible" v-show="boardVisible" class="fixed w-full h-full left-0 top-0 bg-gray-500 opacity-50 flex justify-center items-center">
+<div id="boardItems" >
+  <div @click.stop="boardVisible = !boardVisible" class="board-button">
+    <span >新增看板</span>
+  </div>
+
+  <div @click="boardVisible = !boardVisible" v-show="boardVisible" class="w-full h-full left-0 top-0 bg-gray-500 opacity-50 fixed flex justify-center items-center">
     <div @click.stop class="w-4/12 h-56 bg-red-100 rounded">
       <div @click="boardVisible = !boardVisible" class="text-right cursor-pointer"><i class="fas fa-times"></i></div>
       <%= form_with model: @board do |board| %>
@@ -10,7 +16,6 @@
       <% end %>
     </div>
   </div>
-
 </div>
 
 <p><%= flash[:notice] if notice %></p>
