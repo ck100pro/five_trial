@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const boardItems = new Vue({
-    el: "#boardItems",
+  const controllerItems = new Vue({
+    el: "#controllerItems",
     data: {
       boardVisible: false
     }

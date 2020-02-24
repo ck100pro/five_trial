@@ -1,1 +1,1 @@
-import "./board_controller.js"
+import "./controller.js"
