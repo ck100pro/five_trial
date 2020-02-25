@@ -1,6 +1,5 @@
 class BoardsController < ApplicationController
-  before_action :board_params, only: [:create]
-
+  before_action :find_board, only: [:list_create]
   def index
     @board = Board.new
     @boards = Board.all
@@ -8,16 +7,34 @@ class BoardsController < ApplicationController
 
   def create
     board = Board.new(board_params)
-    if board.save
-      redirect_to board_path(board.id), {notice: "board建立成功"}
+    board.save
+    redirect_to board_path(board.id), {notice: "board建立成功"}
+
+  end
+
+  def list_create
+    list = @board.lists.build(list_params)
+    if list.save
+      redirect_to root_path, {notice: "list建立成功"}
+    else
+      
     end
   end
 
   def show
+    @list = List.new
   end
 
   private
+  def find_board
+    @board = Board.find(params[:id])
+  end
+
   def board_params
     params.require(:board).permit(:title)
+  end
+
+  def list_params
+    params.require(:list).permit(:title)
   end
 end

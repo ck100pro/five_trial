@@ -1,2 +1,10 @@
 <p><%= flash[:notice] if notice %></p>
 
+<div>
+  <div>
+    <%= form_with model:@list, url: list_board_path do |list| %>
+      <%= list.text_field :title %>
+      <%= list.submit %>
+    <% end %>
+  </div>
+</div>
