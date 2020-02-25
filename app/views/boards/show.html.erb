@@ -1,10 +1,21 @@
 <p><%= flash[:notice] if notice %></p>
 
-<div>
+<div @click="onclick" id="view-controller" class="h-full">
   <div>
-    <%= form_with model:@list, url: list_board_path do |list| %>
-      <%= list.text_field :title %>
-      <%= list.submit %>
-    <% end %>
+    <div>
+      <div v-show="!boardVisible" class="h-8 w-64 border-black border-solid border-2 rounded">
+        <span id="list-show" class="block h-full w-full cursor-pointer">新增列表</span>
+      </div>
+    </div>
+  
+    <div v-show="boardVisible">
+      <%= form_with model:@list, url: list_board_path do |list| %>
+        <%= list.text_field :title, class: "h-8 w-64 border-black border-solid border-2 rounded" %>
+        <div>
+          <%= list.submit %>
+          <i id="list-cancel" class="fas fa-times"></i>
+        </div>
+      <% end %>
+    </div>
   </div>
 </div>
