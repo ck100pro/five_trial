@@ -1,27 +1,19 @@
 <p><%= flash[:notice] if notice %></p>
 
-<div @click="onclick" id="view-controller" class="h-full flex overflow-x-scroll">
+<div @click.stop="onclick" id="view-controller" class="h-full flex overflow-x-scroll">
   <div id="list-group" class="flex">
     <% @lists.each do |list| %>
       <list-view title="<%= list.title %>"></list-view>
     <% end %>
   </div>
 
-  <div class="">
-    <div>
-      <div v-show="!boardVisible" class="h-8 w-64 border-black border-solid border-2 rounded">
-        <span id="list-show" class="block h-full w-full cursor-pointer">新增列表</span>
+  <list-create ref="ListCreate">
+    <%= form_with model:@list, url: list_board_path do |list| %>
+      <%= list.text_field :title, class: "h-8 w-64 border-black border-solid border-2 rounded" %>
+      <div>
+        <%= list.submit %>
+        <i @click="onclick" id="list-cancel" class="fas fa-times"></i>
       </div>
-    </div>
-  
-    <div @click.stop v-show="boardVisible">
-      <%= form_with model:@list, url: list_board_path do |list| %>
-        <%= list.text_field :title, class: "h-8 w-64 border-black border-solid border-2 rounded" %>
-        <div>
-          <%= list.submit %>
-          <i @click="onclick" id="list-cancel" class="fas fa-times"></i>
-        </div>
-      <% end %>
-    </div>
-  </div>
+    <% end %>
+  </list-create>
 </div>

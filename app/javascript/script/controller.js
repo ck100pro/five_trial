@@ -1,27 +1,23 @@
 import ListView from "../templete/listview.vue"
+import ListCreate from "../templete/listcreate.vue"
 
 document.addEventListener('DOMContentLoaded', () => {
 new Vue({
     el: "#controllerItems",
     data: {
-      boardVisible: false
+      boardVisible: true
     },
     methods: {
       onclick: function(event){
         let targetId = event.target.id
-        if (targetId == "list-show" || targetId == "list-cancel"){
-          this.boardVisible = !this.boardVisible
-          console.log(controllerItems)
-        } else {
-          this.boardVisible = false
+        if (targetId != "listButton"){
+          this.$refs.ListCreate.visible = true
         }
-      },
-      onc: function(){
-        console.log("123")
       }
     },
     components: {
-      ListView
+      ListView,
+      ListCreate
     }
   })
 })
