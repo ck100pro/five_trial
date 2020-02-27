@@ -13,16 +13,19 @@ class BoardsController < ApplicationController
   end
 
   def list_create
-    list = @board.lists.build(list_params)
-    if list.save
-      redirect_to root_path, {notice: "list建立成功"}
-    else
-      
+    @list = @board.lists.build(list_params)
+    respond_to do |format|
+      if @list.save
+        format.js
+      else
+        
+      end
     end
   end
 
   def show
     @list = List.new
+    @lists = List.all
   end
 
   private

@@ -1,0 +1,37 @@
+console.log("list_create")
+
+if (true) {
+  let listTitle =new Vue({
+    methods: {
+      onc: function(){
+        console.log("wertyui")
+        this.$emit('onc')
+      }
+    },
+    render(createElement){
+      return createElement (
+        "div",[
+          createElement(
+            "div",{
+              class: ["h-8", "w-64", "border-black", "border-solid", "border-2", "rounded"]
+            },[
+              createElement(
+                "span",{
+                  class: ["block", "h-full", "w-full", "cursor-pointer"],
+                  on: {
+                    click: this.onc
+                  }
+                }
+              )
+            ]
+          )
+        ]
+      )
+    }
+  }).$mount()
+  console.log(listTitle.$el)
+  document.querySelector("#list-group").append(listTitle.$el)
+}
+
+
+
