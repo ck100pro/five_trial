@@ -25,7 +25,7 @@ class BoardsController < ApplicationController
 
   def show
     @list = List.new
-    @lists = List.all
+    @lists = List.pluck(:id, :title)
   end
 
   private

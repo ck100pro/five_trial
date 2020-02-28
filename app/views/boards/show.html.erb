@@ -2,9 +2,7 @@
 
 <div @click.stop="onclick" id="view-controller" class="h-full flex overflow-x-scroll">
   <div id="list-group" class="flex">
-    <% @lists.each do |list| %>
-      <list-view title="<%= list.title %>"></list-view>
-    <% end %>
+    <list-view :title="<%= @lists %>"></list-view>
   </div>
 
   <list-create ref="ListCreate">
@@ -16,4 +14,7 @@
       </div>
     <% end %>
   </list-create>
+
 </div>
+<p><%= @lists %></p>
+<p><%= @lists %></p>
