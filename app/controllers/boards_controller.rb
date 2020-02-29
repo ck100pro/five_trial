@@ -24,7 +24,7 @@ class BoardsController < ApplicationController
 
   def show
     @list = List.new
-    @lists = List.pluck(:id, :title)
+    @lists = List.select(:id, :title).to_json
   end
 
   private

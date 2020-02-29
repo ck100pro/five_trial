@@ -5,7 +5,6 @@
         <span id="listButton" class="block h-full w-full cursor-pointer">新增列表</span>
       </div>
     </div>
-  
     <div @click.stop v-show="!visible" class="456">
       <slot></slot>
     </div>

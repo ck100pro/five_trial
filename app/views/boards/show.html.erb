@@ -2,7 +2,7 @@
 
 <div @click.stop="onclick" id="view-controller" class="h-full flex overflow-x-scroll">
   <div id="list-group" class="flex">
-    <list-view :title="<%= @lists %>"></list-view>
+    <list-view :title="listItem = <%= @lists %>"></list-view>
   </div>
 
   <list-create ref="ListCreate">
