@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const token = document.querySelector("meta[name=csrf-token]") || { content: 'no-csrf-token' }
-const axios = axios.create({
+const ax = axios.create({
   headers: {
     common: {
       'X-CSRF-TOKEN': token.content
@@ -9,4 +9,4 @@ const axios = axios.create({
   },
 });
 
-export default axios;
+export default ax;

@@ -9,16 +9,15 @@ class BoardsController < ApplicationController
     board = Board.new(board_params)
     board.save
     redirect_to board_path(board.id), {notice: "board建立成功"}
-
   end
 
   def list_create
-    @list = @board.lists.build(list_params)
+    list = @board.lists.build(list_params)
     respond_to do |format|
-      if @list.save
-        format.js
+      if list.save
+        format.json { render :json => list.as_json(only: [:id, :title]) }
       else
-        
+  
       end
     end
   end

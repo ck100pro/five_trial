@@ -6,7 +6,7 @@ import '@fortawesome/fontawesome-free/css/all.css'
 import '../css'
 import '../script'
 import Vue from 'vue/dist/vue.esm'
-import axios from "../helpers/axios"
+import axios from "../helpers/axios.js"
 
 global.Vue = Vue;
 global.axios = axios;

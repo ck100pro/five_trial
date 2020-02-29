@@ -6,15 +6,12 @@
   </div>
 
   <list-create ref="ListCreate">
-    <%= form_with model:@list, url: list_board_path do |list| %>
+    <%= form_with model:@list, url: list_board_path, id: "test" do |list| %>
       <%= list.text_field :title, class: "h-8 w-64 border-black border-solid border-2 rounded" %>
       <div>
-        <%= list.submit %>
+        <%= list.submit "送出" %>
         <i @click="onclick" id="list-cancel" class="fas fa-times"></i>
       </div>
     <% end %>
   </list-create>
-
 </div>
-<p><%= @lists %></p>
-<p><%= @lists %></p>
