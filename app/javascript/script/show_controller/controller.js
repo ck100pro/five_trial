@@ -1,5 +1,5 @@
-import ListView from "../templete/listview.vue"
-import ListCreate from "../templete/listcreate.vue"
+import ListView from "./templete/listview.vue"
+import ListCreate from "./templete/listcreate.vue"
 
 document.addEventListener('DOMContentLoaded', () => {
 let vue = new Vue({

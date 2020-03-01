@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html class="h-full">
+  <head>
+    <title>FiveTrial</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_pack_tag 'application', media: 'all'%>
+    <%= javascript_pack_tag 'application'%>
+    <%= javascript_pack_tag 'showApplication'%>
+  </head>
+
+  <body class="h-full relative">
+    <div class="h-full flex flex-col ">
+      <div class="w-full h-auto">
+        <%= render "shared/navbar" %>
+      </div>
+
+      <div id="controllerItems" class="flex-grow">
+        <%= yield %>
+      </div>
+    </div>
+  </body>
+</html>

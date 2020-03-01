@@ -1,5 +1,6 @@
 class BoardsController < ApplicationController
   before_action :find_board, only: [:list_create]
+  layout "showApplictaion", only: [:show] 
   def index
     @board = Board.new
     @boards = Board.all
