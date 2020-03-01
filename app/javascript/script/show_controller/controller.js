@@ -2,10 +2,9 @@ import ListView from "./templete/listview.vue"
 import ListCreate from "./templete/listcreate.vue"
 
 document.addEventListener('DOMContentLoaded', () => {
-let vue = new Vue({
-    el: "#controllerItems",
+let show = new Vue({
+    el: "#controllerShow",
     data: {
-      boardVisible: true,
       listItem: undefined
     },
     methods: {
@@ -21,8 +20,8 @@ let vue = new Vue({
     mounted: function(){
       document.getElementById('test').addEventListener('ajax:success', function(data){
         let listData = data.detail[0]
-        let listLength = vue.listItem.length
-        Vue.set(vue.listItem, listLength, listData)
+        let listLength = show.listItem.length
+        Vue.set(show.listItem, listLength, listData)
       }) 
     },
     components: {
