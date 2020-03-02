@@ -15,6 +15,10 @@ class BoardsController < ApplicationController
   def show
     @list = List.new
     @lists = List.select(:id, :title).to_json
+    respond_to do |format|
+      format.html
+      format.json { render :json => @lists}
+    end
   end
 
   private

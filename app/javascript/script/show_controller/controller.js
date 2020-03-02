@@ -1,5 +1,6 @@
 import ListView from "./templete/listview.vue"
 import ListCreate from "./templete/listcreate.vue"
+import Axios from "axios"
 
 document.addEventListener('DOMContentLoaded', () => {
 let show = new Vue({
@@ -17,18 +18,28 @@ let show = new Vue({
         }
       }
     },
+    created: function(){
+      let path = location.pathname
+      let pathJson = path + ".json"
+      axios.get(`${pathJson}`)
+        .then(function(response){
+          console.log(response)
+          Vue.set(show,"listItem",response.data)
+        })
+    },
     mounted: function(){
       document.getElementById('listForm').addEventListener('ajax:success', function(data){
         console.log(data)
-        let status = data.detail[0].status
-        if (status == "error"){
-          console.log(message)
-          show.listMessage = "新增失敗"
+        let listData = data.detail[0]
+        if (listData.status == "error"){
+          Vue.set(show,"listMessage","新增失敗")
+          console.log(show.listItem)
         } else {
-          let listData = data.detail[0]
-          let listLength = show.listItem.length
-          Vue.set(show.listItem, listLength, listData)
-          show.listMessage = "新增成功"
+          let length = show.listItem.length 
+          Vue.set(show.listItem,length,listData)
+          Vue.set(show,"listMessage","新增成功")
+          // show.listItem.push(listData)
+          // console.log(show.listMessage)
         }
       }) 
     },
