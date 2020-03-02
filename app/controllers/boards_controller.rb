@@ -1,5 +1,5 @@
 class BoardsController < ApplicationController
-  before_action :find_board, only: [:list_create]
+  before_action :find_board, only: [:show]
   layout "showApplictaion", only: [:show] 
   def index
     @board = Board.new
@@ -10,18 +10,6 @@ class BoardsController < ApplicationController
     board = Board.new(board_params)
     board.save
     redirect_to board_path(board.id), {notice: "board建立成功"}
-  end
-
-  def list_create
-    list = @board.lists.build(list_params)
-    respond_to do |format|
-      if list.valid?
-        list.save
-        format.json { render :json => success_message(list)}
-      else
-        format.json { render :json => error_message(list) }
-      end
-    end
   end
 
   def show
@@ -36,19 +24,5 @@ class BoardsController < ApplicationController
 
   def board_params
     params.require(:board).permit(:title)
-  end
-
-  def list_params
-    params.require(:list).permit(:title)
-  end
-
-  def error_message(list)
-    status = {status: "error"}
-    list.errors.messages.merge(status)
-  end
-
-  def success_message(list)
-    status = {status: "success"}
-    list.as_json(only: [:id, :title]).merge(status)
   end
 end

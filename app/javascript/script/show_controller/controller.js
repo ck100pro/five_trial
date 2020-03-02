@@ -19,7 +19,7 @@ let show = new Vue({
       }
     },
     mounted: function(){
-      document.getElementById('test').addEventListener('ajax:success', function(data){
+      document.getElementById('listForm').addEventListener('ajax:success', function(data){
         console.log(data)
         let listData = data.detail[0]
         let listLength = show.listItem.length

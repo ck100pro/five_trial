@@ -6,7 +6,7 @@
   </div>
 
   <list-create ref="ListCreate">
-    <%= form_with model:@list, url: list_board_path, id: "test" do |list| %>
+    <%= form_with model:@list, url: board_lists_path(@board),method: "post", id: "listForm" do |list| %>
       <%= list.text_field :title, class: "h-8 w-64 border-black border-solid border-2 rounded" %>
       <div>
         <%= list.submit "送出" %>
