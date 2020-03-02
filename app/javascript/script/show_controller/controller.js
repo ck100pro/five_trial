@@ -5,7 +5,8 @@ document.addEventListener('DOMContentLoaded', () => {
 let show = new Vue({
     el: "#controllerShow",
     data: {
-      listItem: undefined
+      listItem: undefined,
+      errorMessage: undefined
     },
     methods: {
       onclick: function(event){
@@ -19,6 +20,7 @@ let show = new Vue({
     },
     mounted: function(){
       document.getElementById('test').addEventListener('ajax:success', function(data){
+        console.log(data)
         let listData = data.detail[0]
         let listLength = show.listItem.length
         Vue.set(show.listItem, listLength, listData)
