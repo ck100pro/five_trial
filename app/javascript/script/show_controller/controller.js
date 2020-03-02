@@ -6,12 +6,11 @@ let show = new Vue({
     el: "#controllerShow",
     data: {
       listItem: undefined,
-      errorMessage: undefined
+      listMessage: undefined
     },
     methods: {
       onclick: function(event){
         let targetId = event.target.id
-        console.log(this.listItem.length)
         console.log(this.listItem)
         if (targetId != "listButton"){
           this.$refs.ListCreate.visible = true
@@ -21,9 +20,16 @@ let show = new Vue({
     mounted: function(){
       document.getElementById('listForm').addEventListener('ajax:success', function(data){
         console.log(data)
-        let listData = data.detail[0]
-        let listLength = show.listItem.length
-        Vue.set(show.listItem, listLength, listData)
+        let status = data.detail[0].status
+        if (status == "error"){
+          console.log(message)
+          show.listMessage = "新增失敗"
+        } else {
+          let listData = data.detail[0]
+          let listLength = show.listItem.length
+          Vue.set(show.listItem, listLength, listData)
+          show.listMessage = "新增成功"
+        }
       }) 
     },
     components: {
