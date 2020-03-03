@@ -14,10 +14,12 @@ class BoardsController < ApplicationController
 
   def show
     @list = List.new
-    @lists = List.select(:id, :title).to_json
+
+    lists = List.includes(:cards).select(:id, :title)
+    list_card_to_json(lists)
     respond_to do |format|
       format.html
-      format.json { render :json => @lists}
+      format.json { render :json => @all_array}
     end
   end
 
@@ -28,5 +30,16 @@ class BoardsController < ApplicationController
 
   def board_params
     params.require(:board).permit(:title)
+  end
+
+  def list_card_to_json(lists)
+    @all_array = []
+
+    lists.each do |list|
+      list_json = list.as_json
+      card_json = list.cards.as_json(only: [:id, :title])
+      list_json["card"] = card_json
+      @all_array.push(list_json)
+    end
   end
 end

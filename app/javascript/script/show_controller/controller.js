@@ -1,6 +1,5 @@
 import ListView from "./templete/listview.vue"
 import ListCreate from "./templete/listcreate.vue"
-import Axios from "axios"
 
 document.addEventListener('DOMContentLoaded', () => {
 let show = new Vue({
@@ -12,7 +11,6 @@ let show = new Vue({
     methods: {
       onclick: function(event){
         let targetId = event.target.id
-        console.log(this.listItem)
         if (targetId != "listButton"){
           this.$refs.ListCreate.visible = true
         }
@@ -33,13 +31,10 @@ let show = new Vue({
         let listData = data.detail[0]
         if (listData.status == "error"){
           Vue.set(show,"listMessage","新增失敗")
-          console.log(show.listItem)
         } else {
           let length = show.listItem.length 
           Vue.set(show.listItem,length,listData)
           Vue.set(show,"listMessage","新增成功")
-          // show.listItem.push(listData)
-          // console.log(show.listMessage)
         }
       }) 
     },
