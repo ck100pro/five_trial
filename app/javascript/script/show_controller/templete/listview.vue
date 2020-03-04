@@ -19,7 +19,7 @@
 export default {
   data: function(){
     return {
-      cardTitle: undefined
+      cardTitle: null
     }
   },
   props: [
@@ -35,13 +35,21 @@ export default {
         dataPosition = targetHtml.parentNode.dataset.position
         targetHtml = targetHtml.parentNode
       }
-      return path + "/lists/" + this.title[dataPosition].id + "/cards"
+      return path + "/lists/" + this.title[dataPosition].id + "/cards.json"
     },
     cardCreate: function(event){
       let url = this.selectUrl(event)
       console.log(url)
       axios.post(`${url}`,{
-        title: this.cardTitle
+        card:{
+          title: this.cardTitle
+        }
+      })
+      .then(function(response){
+        console.log(response)
+      })
+      .catch(function(error){
+        console.log(error.response)
       })
     }
   }
