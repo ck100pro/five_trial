@@ -5,8 +5,8 @@ document.addEventListener('DOMContentLoaded', () => {
 let show = new Vue({
     el: "#controllerShow",
     data: {
-      listItem: undefined,
-      listMessage: undefined
+      listItem: null,
+      listMessage: null
     },
     methods: {
       onclick: function(event){
@@ -26,17 +26,19 @@ let show = new Vue({
         })
     },
     mounted: function(){
-      document.getElementById('listForm').addEventListener('ajax:success', function(data){
+      let listenList = document.getElementById('listForm')
+      listenList.addEventListener('ajax:success', function(data){
         console.log(data)
         let listData = data.detail[0]
-        if (listData.status == "error"){
-          Vue.set(show,"listMessage","新增失敗")
-        } else {
-          let length = show.listItem.length 
-          Vue.set(show.listItem,length,listData)
-          Vue.set(show,"listMessage","新增成功")
-        }
-      }) 
+        let length = show.listItem.length 
+        Vue.set(show.listItem,length,listData)
+        Vue.set(show,"listMessage","LIST新增成功")
+      });
+      listenList.addEventListener('ajax:error', function(data){
+        console.log(data)
+        let listData = data.detail[0]
+        Vue.set(show,"listMessage",listData.title[0])
+      });
     },
     components: {
       ListView,
