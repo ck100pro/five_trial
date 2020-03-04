@@ -6,9 +6,9 @@ class ListsController < ApplicationController
     respond_to do |format|
       if list.valid?
         list.save
-        format.json { render :json => success_message(list)}
+        format.json {render :json => list, status: 200}
       else
-        format.json { render :json => error_message(list) }
+        format.json {render :json => error_message(list), status: 400}
       end
     end
   end
@@ -23,12 +23,6 @@ private
   end
 
   def error_message(list)
-    status = {status: "error"}
-    list.errors.messages.merge(status)
-  end
-
-  def success_message(list)
-    status = {status: "success"}
-    list.as_json(only: [:id, :title]).merge(status)
+    list.errors.messages
   end
 end
