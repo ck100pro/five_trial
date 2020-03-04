@@ -18,8 +18,8 @@ let show = new Vue({
     },
     created: function(){
       let path = location.pathname
-      let pathJson = path + ".json"
-      axios.get(`${pathJson}`)
+      let url = path + ".json"
+      axios.get(`${url}`)
         .then(function(response){
           console.log(response)
           Vue.set(show,"listItem",response.data)

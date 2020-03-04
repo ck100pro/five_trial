@@ -8,5 +8,4 @@ const ax = axios.create({
     },
   },
 });
-
 export default ax;
