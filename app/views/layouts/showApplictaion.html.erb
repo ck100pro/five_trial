@@ -12,11 +12,11 @@
 
   <body class="h-full relative">
     <div class="h-full flex flex-col ">
-      <div class="w-full h-auto">
+      <div>
         <%= render "shared/navbar" %>
       </div>
 
-      <div id="controllerShow" class="flex-grow">
+      <div @click.stop="onclick" id="controllerShow" class="flex flex-grow bg-teal-200 overflow-x-scroll overflow-y-hidden">
         <%= yield %>
       </div>
     </div>

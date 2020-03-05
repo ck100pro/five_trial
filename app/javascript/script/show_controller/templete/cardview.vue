@@ -1,9 +1,7 @@
 <template>
-  <div>
-    <div v-for="value in cardItem">
-      <div class="h-8 w-64 border-black border-solid border-2 rounded">
-        <span class="block h-full w-full cursor-pointer">{{value.title}}</span>
-      </div>
+  <div class="max-h-68">
+    <div v-for="value in cardItem" class="">
+      <span class="block h-32 w-full cursor-pointer">{{value.title}}</span>
     </div>
   </div>
 </template>
