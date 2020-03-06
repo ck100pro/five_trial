@@ -39,10 +39,10 @@ export default {
   methods: {
     selectUrl: function(event){
       let path = location.pathname
-      let dataPosition = null
+      let dataPosition = undefined
       let targetHtml = event.target
 
-      while(dataPosition == null){
+      while(dataPosition == undefined){
         dataPosition = targetHtml.parentNode.dataset.position
         targetHtml = targetHtml.parentNode
       }
@@ -50,14 +50,17 @@ export default {
     },
     cardCreate: function(event){
       let url = this.selectUrl(event)
+      let that = this
       console.log(url)
+      console.log(that.totalItem)
       axios.post(`${url}`,{
         card:{
           title: this.cardName
         }
       })
       .then(function(response){
-        console.log(response)
+        let cardData = response.data
+        that.$emit("update-card", cardData)
       })
       .catch(function(error){
         console.log(error.response)

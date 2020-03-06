@@ -7,8 +7,8 @@ document.addEventListener('DOMContentLoaded', () => {
 let show = new Vue({
     el: "#controllerShow",
     data: {
-      listItem: null,
-      listMessage: null
+      listItem: undefined,
+      listMessage: undefined
     },
     methods: {
       onclick: function(event){
@@ -16,6 +16,9 @@ let show = new Vue({
         if (targetId != "listButton"){
           this.$refs.ListCreate.visible = true
         }
+      },
+      getNewCard: function(data){
+        console.log(data)
       }
     },
     created: function(){
