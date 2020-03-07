@@ -11,9 +11,9 @@
 
         <div>
           <div class="h-8 w-64 border-black border-solid border-2 rounded">
-            <span class="block h-full w-full cursor-pointer">新增卡片</span>
+            <span @click="cardCreateVisibleController(index)" id="cardButton" class="block h-full w-full cursor-pointer">新增卡片</span>
           </div>
-          <div class="h-8 w-64 border-black border-solid border-2 rounded">
+          <div v-show="cardVisibleController == index" class="h-8 w-64 border-black border-solid border-2 rounded">
             <input class="h-full w-full" type="text" v-model="cardName">
             <button @click="cardCreate">送出{{value.id}}</button>
           </div>
@@ -30,7 +30,8 @@ export default {
 
   data: function(){
     return {
-      cardName: null
+      cardName: null,
+      cardVisibleController : NaN
     }
   },
   props: [
@@ -48,6 +49,9 @@ export default {
       }
       return path + "/lists/" + this.totalItem[dataPosition].id + "/cards.json"
     },
+    cardCreateVisibleController: function(index){
+      this.cardVisibleController = index
+    },
     cardCreate: function(event){
       let url = this.selectUrl(event)
       let that = this
@@ -59,7 +63,6 @@ export default {
       .then(function(response){
         let cardData = response.data
         that.$emit("update-card", cardData)
-        console.log("1")
       })
       .catch(function(error){
         let cardData = error.response

@@ -16,8 +16,10 @@
         <%= render "shared/navbar" %>
       </div>
 
-      <div @click.stop="onclick" id="controllerShow" class="flex flex-grow bg-teal-200 overflow-x-scroll overflow-y-hidden">
-        <%= yield %>
+      <div id="controllerShow" class="flex flex-grow bg-teal-200 overflow-x-scroll overflow-y-hidden">
+        <div class="flex">
+          <%= yield %>
+        </div>
       </div>
     </div>
   </body>

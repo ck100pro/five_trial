@@ -1,9 +1,9 @@
   <p>{{listMessage}}</p>
-  <div id="list-group" class="flex">
-    <list-view :total-item="listItem" @update-card="getNewCard"></list-view>
+  <div @click.stop id="list-group" class="flex">
+    <list-view ref="ListView" :total-item="listItem" @update-card="getNewCard"></list-view>
   </div>
 
-  <list-create ref="ListCreate">
+  <list-create  ref="ListCreate">
     <%= form_with model:@list, url: board_lists_path(@board),method: "post", id: "listForm" do |list| %>
       <%= list.text_field :title, class: "h-8 w-64 border-black border-solid border-2 rounded" %>
       <div>
