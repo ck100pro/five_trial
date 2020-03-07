@@ -23,6 +23,8 @@ let show = new Vue({
           Vue.set(show,"listMessage","CARD新增失敗")
         } else {
           let targetList = this.listItem.find(item => item.id == data.list_id)
+          console.log(this.listItem)
+          console.log(targetList)
           targetList.card.push(data)
           Vue.set(show,"listMessage","CARD新增成功")
         }
