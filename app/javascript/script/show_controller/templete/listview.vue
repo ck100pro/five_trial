@@ -51,8 +51,6 @@ export default {
     cardCreate: function(event){
       let url = this.selectUrl(event)
       let that = this
-      console.log(url)
-      console.log(that.totalItem)
       axios.post(`${url}`,{
         card:{
           title: this.cardName
@@ -61,10 +59,13 @@ export default {
       .then(function(response){
         let cardData = response.data
         that.$emit("update-card", cardData)
+        console.log("1")
       })
       .catch(function(error){
-        console.log(error.response)
-      })
+        let cardData = error.response
+        that.$emit("update-card", cardData)
+      });
+      Vue.set(this,"cardName", null)
     }
   },
   components: {

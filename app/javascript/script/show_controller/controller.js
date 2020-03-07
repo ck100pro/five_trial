@@ -19,6 +19,13 @@ let show = new Vue({
       },
       getNewCard: function(data){
         console.log(data)
+        if (data.status == 400){
+          Vue.set(show,"listMessage","CARD新增失敗")
+        } else {
+          let targetList = this.listItem.find(item => item.id == data.list_id)
+          targetList.card.push(data)
+          Vue.set(show,"listMessage","CARD新增成功")
+        }
       }
     },
     created: function(){
