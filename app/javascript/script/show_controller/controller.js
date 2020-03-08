@@ -11,7 +11,7 @@ let show = new Vue({
       listMessage: undefined
     },
     methods: {
-      onclick: function(event){
+      resetButton: function(event){
         let targetId = event.target.id
         console.log(event.target)
         this.$refs.ListCreate.listVisible = true

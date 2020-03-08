@@ -9,9 +9,9 @@
 
         <card-view :card-item="value.card"></card-view>
 
-        <div>
+        <div @click.stop>
           <div class="h-8 w-64 border-black border-solid border-2 rounded">
-            <span @click="cardCreateVisibleController(index)" id="cardButton" class="block h-full w-full cursor-pointer">新增卡片</span>
+            <span @click="cardCreateButton(index)" id="cardButton" class="block h-full w-full cursor-pointer">新增卡片</span>
           </div>
           <div v-show="cardVisibleController == index" class="h-8 w-64 border-black border-solid border-2 rounded">
             <input class="h-full w-full" type="text" v-model="cardName">
@@ -49,7 +49,7 @@ export default {
       }
       return path + "/lists/" + this.totalItem[dataPosition].id + "/cards.json"
     },
-    cardCreateVisibleController: function(index){
+    cardCreateButton: function(index){
       this.cardVisibleController = index
     },
     cardCreate: function(event){
@@ -69,6 +69,9 @@ export default {
         that.$emit("update-card", cardData)
       });
       Vue.set(this,"cardName", null)
+    },
+    resetButton: function(){
+      this.cardVisibleController = NaN
     }
   },
   components: {

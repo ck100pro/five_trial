@@ -16,7 +16,7 @@
         <%= render "shared/navbar" %>
       </div>
 
-      <div id="controllerShow" class="flex flex-grow bg-teal-200 overflow-x-scroll overflow-y-hidden">
+      <div @click="resetButton" id="controllerShow" class="flex w-full flex-grow bg-teal-200 overflow-x-scroll overflow-y-hidden">
         <div class="flex">
           <%= yield %>
         </div>
