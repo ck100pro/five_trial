@@ -4,19 +4,19 @@
     <div v-for="value, index in totalItem" :data-position="index" id="list-item" class="mr-2 p-1">
       <div @click.stop class="bg-pink-200">
         <div class="h-8 w-64 border-black border-solid border-2 rounded">
-          <span @click="listUpdateInput(index)" v-show="listVisibleUpdate != index" class="block h-full w-full cursor-pointer">{{value.title}}</span>
-          <input  @keydown.enter="listUpdate(index,value)" v-show="listVisibleUpdate == index" :value="value.title" ref="listUpdateInput" type="text" class="block h-full w-full cursor-pointer" >
+          <span @click="listUpdateButton(index)"  v-show="listVisibleUpdate != index" class="block h-full w-full cursor-pointer">{{value.title}}</span>
+          <input  @keydown.enter="listUpdate(index,value)" v-show="listVisibleUpdate == index" :value="value.title" ref="listUpdateInput"  type="text" class="block h-full w-full cursor-pointer" >
         </div>
 
         <card-view :card-item="value.card"></card-view>
 
         <div @click.stop>
           <div v-show="cardVisibleController != index" class="h-8 w-64 border-black border-solid border-2 rounded">
-            <span @click="cardCreateButton(index)" id="cardButton" class="block h-full w-full cursor-pointer">新增卡片</span>
+            <span @click="cardCreateButton(index)" class="block h-full w-full cursor-pointer">新增卡片</span>
           </div>
           <div v-show="cardVisibleController == index" class="h-8 w-64 border-black border-solid border-2 rounded">
-            <input class="h-full w-full" type="text" v-model="cardName">
-            <button @click="cardCreate">送出{{value.id}}</button>
+            <input v-model="cardName" ref="cardCreateInput" class="h-full w-full" type="text">
+            <button @click="cardCreate($event, index)">送出{{value.id}}</button>
           </div>
         </div>
       </div>
@@ -33,7 +33,7 @@ export default {
     return {
       cardName: null,
       cardVisibleController : NaN,
-      listVisibleUpdate: NaN
+      listVisibleUpdate: NaN,
     }
   },
   props: [
@@ -53,11 +53,18 @@ export default {
     },
     cardCreateButton: function(index){
       this.cardVisibleController = index
+      this.$nextTick(() => {
+        this.$refs.cardCreateInput[index].focus()
+      })
     },
-    listUpdateInput: function(index){
+    listUpdateButton: function(index){
+      console.log(this.$refs.listUpdateInput[index])
       this.listVisibleUpdate = index
+      this.$nextTick(() => {
+        this.$refs.listUpdateInput[index].focus()
+      })
     },
-    cardCreate: function(event){
+    cardCreate: function(event, index){
       let url = this.selectUrl(event)
       let that = this
       axios.post(`${url}`,{
@@ -74,6 +81,7 @@ export default {
         that.$emit("update-card", cardData)
       });
       Vue.set(this,"cardName", null)
+      this.$refs.cardCreateInput[index].focus()
     },
     listUpdate: function(index,data){
       let url = location.pathname + `/lists/${data.id}.json`

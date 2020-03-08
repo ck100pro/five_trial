@@ -35,6 +35,7 @@ let show = new Vue({
       updateList: function(updateList, index){
         console.log(updateList.data.title)
         let newListTitle = updateList.data.title
+        Vue.set(show,"listMessage","List更新成功")
         Vue.set(show.listItem[index], "title", newListTitle)
       }
     },
