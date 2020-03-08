@@ -31,6 +31,11 @@ let show = new Vue({
           targetList.card.push(data)
           Vue.set(show,"listMessage","CARD新增成功")
         }
+      },
+      updateList: function(updateList, index){
+        console.log(updateList.data.title)
+        let newListTitle = updateList.data.title
+        Vue.set(show.listItem[index], "title", newListTitle)
       }
     },
     created: function(){

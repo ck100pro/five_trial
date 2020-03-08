@@ -2,15 +2,16 @@
 <template>
   <div class="flex">
     <div v-for="value, index in totalItem" :data-position="index" id="list-item" class="mr-2 p-1">
-      <div class="bg-pink-200">
+      <div @click.stop class="bg-pink-200">
         <div class="h-8 w-64 border-black border-solid border-2 rounded">
-          <span class="block h-full w-full cursor-pointer">{{value.title}}</span>
+          <span @click="listUpdateInput(index)" v-show="listVisibleUpdate != index" class="block h-full w-full cursor-pointer">{{value.title}}</span>
+          <input  @keydown.enter="listUpdate(index,value)" v-show="listVisibleUpdate == index" :value="value.title" ref="listUpdateInput" type="text" class="block h-full w-full cursor-pointer" >
         </div>
 
         <card-view :card-item="value.card"></card-view>
 
         <div @click.stop>
-          <div class="h-8 w-64 border-black border-solid border-2 rounded">
+          <div v-show="cardVisibleController != index" class="h-8 w-64 border-black border-solid border-2 rounded">
             <span @click="cardCreateButton(index)" id="cardButton" class="block h-full w-full cursor-pointer">新增卡片</span>
           </div>
           <div v-show="cardVisibleController == index" class="h-8 w-64 border-black border-solid border-2 rounded">
@@ -31,7 +32,8 @@ export default {
   data: function(){
     return {
       cardName: null,
-      cardVisibleController : NaN
+      cardVisibleController : NaN,
+      listVisibleUpdate: NaN
     }
   },
   props: [
@@ -52,6 +54,9 @@ export default {
     cardCreateButton: function(index){
       this.cardVisibleController = index
     },
+    listUpdateInput: function(index){
+      this.listVisibleUpdate = index
+    },
     cardCreate: function(event){
       let url = this.selectUrl(event)
       let that = this
@@ -69,6 +74,27 @@ export default {
         that.$emit("update-card", cardData)
       });
       Vue.set(this,"cardName", null)
+    },
+    listUpdate: function(index,data){
+      let url = location.pathname + `/lists/${data.id}.json`
+      let that = this
+      let newListTitle = this.$refs.listUpdateInput[index].value
+      axios.patch(`${url}`,{
+        list:{
+          title: newListTitle
+        }
+      })
+      .then(function(response){
+        let listUpdateData = response
+        console.log(listUpdateData)
+        that.$emit("update-list", listUpdateData, index)
+      })
+      .catch(function(error){
+
+      })
+      .then(function(){
+        Vue.set(that,"listVisibleUpdate", NaN)
+      })
     },
     resetButton: function(){
       this.cardVisibleController = NaN
