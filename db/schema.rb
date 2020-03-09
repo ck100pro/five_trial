@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(version: 2020_01_30_132750) do
   create_table "lists", force: :cascade do |t|
     t.string "title", default: "", null: false
     t.integer "position"
+    t.boolean "status", default: true, null: false
     t.bigint "board_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
