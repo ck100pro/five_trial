@@ -8,6 +8,6 @@ class AddCardTable < ActiveRecord::Migration[6.0]
 
       t.timestamps null: false
     end
-    add_index :cards, :title, unique: true
+    add_index :cards, :title
   end
 end

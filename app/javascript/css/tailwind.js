@@ -1,6 +1,8 @@
 module.exports = {
   theme: {
-    extend: {}
+    maxHeight: {
+      "68": "680px"
+    }
   },
   variants: {},
   plugins: []
