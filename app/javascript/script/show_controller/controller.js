@@ -8,7 +8,7 @@ let show = new Vue({
     el: "#controllerShow",
     data: {
       listItem: undefined,
-      listMessage: undefined
+      message: undefined
     },
     methods: {
       resetButton: function(event){
@@ -25,17 +25,22 @@ let show = new Vue({
       },
       getNewCard: function(data){
         if (data.status == 400){
-          Vue.set(show,"listMessage","CARD新增失敗")
+          Vue.set(show,"message","CARD新增失敗")
         } else {
           let targetList = this.listItem.find(item => item.id == data.list_id)
           targetList.card.push(data)
-          Vue.set(show,"listMessage","CARD新增成功")
+          Vue.set(show,"message","CARD新增成功")
         }
       },
+      deleteCard: function(data){
+        let cardIndex = data.card_index
+        let listIndex= data.list_index
+        Vue.set(show,"message","卡片刪除成功")
+        Vue.delete(show.listItem[listIndex].card, cardIndex)
+      },      
       updateList: function(updateList, index){
-        console.log(updateList.data.title)
         let newListTitle = updateList.data.title
-        Vue.set(show,"listMessage","List更新成功")
+        Vue.set(show,"message","List更新成功")
         Vue.set(show.listItem[index], "title", newListTitle)
       }
     },
@@ -53,11 +58,11 @@ let show = new Vue({
         let listData = data.detail[0]
         let length = show.listItem.length 
         Vue.set(show.listItem,length,listData)
-        Vue.set(show,"listMessage","LIST新增成功")
+        Vue.set(show,"message","LIST新增成功")
       });
       listenList.addEventListener('ajax:error', function(data){
         let listData = data.detail[0]
-        Vue.set(show,"listMessage",listData.title[0])
+        Vue.set(show,"message",listData.title[0])
       });
     },
     components: {

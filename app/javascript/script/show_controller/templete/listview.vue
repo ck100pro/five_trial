@@ -1,4 +1,3 @@
-
 <template>
   <div class="flex">
     <div v-for="value, index in totalItem" :data-position="index" id="list-item" class="mr-2 p-1">
@@ -8,7 +7,7 @@
           <input  @keydown.enter="listUpdate(index,value)" v-show="listVisibleUpdate == index" :value="value.title" ref="listUpdateInput"  type="text" class="block h-full w-full cursor-pointer" >
         </div>
 
-        <card-view :card-item="value.card"></card-view>
+        <card-view :card-item="value.card" :list-item="{index: index, id: value.id}" v-on="$listeners"></card-view>
 
         <div @click.stop>
           <div v-show="cardVisibleController != index" class="h-8 w-64 border-black border-solid border-2 rounded">
@@ -58,7 +57,6 @@ export default {
       })
     },
     listUpdateButton: function(index){
-      console.log(this.$refs.listUpdateInput[index])
       this.listVisibleUpdate = index
       this.$nextTick(() => {
         this.$refs.listUpdateInput[index].focus()
@@ -94,7 +92,6 @@ export default {
       })
       .then(function(response){
         let listUpdateData = response
-        console.log(listUpdateData)
         that.$emit("update-list", listUpdateData, index)
       })
       .catch(function(error){

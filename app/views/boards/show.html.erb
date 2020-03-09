@@ -1,6 +1,6 @@
-  <p>{{listMessage}}</p>
+  <p>{{message}}</p>
   <div id="list-group" class="flex">
-    <list-view ref="ListView" :total-item="listItem" @update-card="getNewCard" @update-list="updateList"></list-view>
+    <list-view ref="ListView" :total-item="listItem" @update-card="getNewCard" @update-list="updateList" @delett-card="deleteCard"></list-view>
   </div>
 
   <list-create ref="ListCreate">
