@@ -14,9 +14,12 @@ class CardsController < ApplicationController
   end
 
   def destroy
-    @card.destroy
     respond_to do |format|
-      format.json {render :json => {message: "刪除成功"}, status: 200}
+      if @card.destroy
+        format.json {render :json => {message: "刪除成功"}, status: 200}
+      else
+        format.json {render :json => {message: "刪除失敗"}, status: 400} #暫定先這樣寫等相關設定出來在進行改寫
+      end
     end
   end
   

@@ -31,6 +31,9 @@
           let listAndCardIndex = {"list_index": `${listItem.index}`, "card_index": `${index}`}
           that.$emit("delett-card",listAndCardIndex)
         })
+        .then(function(error){
+          //暫定不處理，Rails端的驗證還沒處理好
+        })
       }
     }
   }
