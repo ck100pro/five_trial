@@ -96,7 +96,8 @@ export default {
         that.$emit("update-list", listUpdateData, index)
       })
       .catch(function(error){
-
+        let listUpdateData = error.response
+        that.$emit("update-list", listUpdateData)
       })
       .then(function(){
         Vue.set(that,"listVisibleUpdate", NaN)

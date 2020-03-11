@@ -14,10 +14,14 @@ class ListsController < ApplicationController
   end
 
   def update
-    updatelist = @list.update(list_params)
+    @list.update(list_params)
 
     respond_to do |format|
-      format.json {render :json => list_update(@list), status: 200}
+      if @list.update(list_params)
+        format.json {render :json => list_update(@list), status: 200}
+      else
+        format.json {render :json => list_error_message(@list), status: 400}
+      end
     end
   end
 
@@ -39,7 +43,7 @@ private
     list.as_json(only: [:id, :title]).merge(card)
   end
 
-  def list_create_error(list)
+  def list_error_message(list)
     list.errors.messages
   end
 

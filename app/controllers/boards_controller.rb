@@ -10,14 +10,17 @@ class BoardsController < ApplicationController
 
   def create
     board = Board.new(board_params)
-    board.save
-    redirect_to board_path(board.id), {notice: "board建立成功"}
+    if board.save
+      redirect_to board_path(board.id), {notice: "board建立成功"}
+    else
+      redirect_to root_path, {notice: "board建立失敗"}
+    end
   end
 
   def show
     @list = List.new
 
-    lists = List.includes(:cards).to_a.map do |list|
+    lists = @board.lists.includes(:cards).to_a.map do |list|
       list.to_json.merge(card: list.cards.map(&:to_json))
     end
     

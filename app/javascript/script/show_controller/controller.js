@@ -13,11 +13,9 @@ let show = new Vue({
     methods: {
       resetButton: function(event){
         let targetId = event.target.id
-        console.log(event.target)
         console.log(this.listItem)
         this.$refs.ListCreate.listVisible = true
         this.$refs.ListView.cardVisibleController = NaN
-        console.log(this.$refs.ListView.cardVisibleController)
         // if (targetId != "listButton" || targetId != "cardButton"){
         //   this.$refs.ListCreate.listVisible = true
         //   this.$refs.ListView.cardVisibleController = NaN
@@ -40,14 +38,19 @@ let show = new Vue({
         Vue.delete(show.listItem[listIndex].card, cardIndex)
       },      
       updateList: function(updateList, index){
-        let newListTitle = updateList.data.title
-        Vue.set(show,"message","List更新成功")
-        Vue.set(show.listItem[index], "title", newListTitle)
+        if(updateList.status == 400){
+          Vue.set(show,"message","卡片更新失敗")
+        } else {
+          let newListTitle = updateList.data.title
+          Vue.set(show,"message","List更新成功")
+          Vue.set(show.listItem[index], "title", newListTitle)
+        }
       }
     },
     created: function(){
       let path = location.pathname
       let url = path + ".json"
+      console.log(url)
       axios.get(`${url}`)
         .then(function(response){
           Vue.set(show,"listItem",response.data)
