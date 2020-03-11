@@ -72,6 +72,7 @@ export default {
       })
       .then(function(response){
         let cardData = response.data
+        console.log(cardData)
         that.$emit("update-card", cardData)
       })
       .catch(function(error){

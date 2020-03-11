@@ -5,8 +5,7 @@ class ListsController < ApplicationController
   def create
     list = @board.lists.build(list_params)
     respond_to do |format|
-      if list.valid?
-        list.save
+      if list.save
         format.json {render :json => list_create_success(list), status: 200}
       else
         format.json {render :json => list_create_error(list), status: 400}

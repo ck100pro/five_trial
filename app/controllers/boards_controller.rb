@@ -1,9 +1,11 @@
 class BoardsController < ApplicationController
   before_action :find_board, only: [:show]
+
   layout "showApplictaion", only: [:show] 
+
   def index
     @board = Board.new
-    @boards = Board.all
+    @boards = Board.all #後面會用分頁或者不一次顯示多筆
   end
 
   def create
@@ -15,11 +17,13 @@ class BoardsController < ApplicationController
   def show
     @list = List.new
 
-    lists = List.includes(:cards).select(:id, :title)
-    list_card_to_json(lists)
+    lists = List.includes(:cards).to_a.map do |list|
+      list.to_json.merge(card: list.cards.map(&:to_json))
+    end
+    
     respond_to do |format|
       format.html
-      format.json { render :json => @all_array}
+      format.json { render :json => lists}
     end
   end
 
@@ -30,16 +34,5 @@ class BoardsController < ApplicationController
 
   def board_params
     params.require(:board).permit(:title)
-  end
-
-  def list_card_to_json(lists)
-    @all_array = []
-
-    lists.each do |list|
-      list_json = list.as_json
-      card_json = list.cards.as_json(only: [:id, :title])
-      list_json["card"] = card_json
-      @all_array.push(list_json)
-    end
   end
 end

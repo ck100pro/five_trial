@@ -5,9 +5,8 @@ class CardsController < ApplicationController
   def create
     card = @list.cards.build(card_params)
     respond_to do |format|
-      if card.valid?
-        card.save
-        format.json {render :json => card, status: 200}
+      if card.save
+        format.json {render :json => card.to_json, status: 200}
       else
         format.json {render :json => error_message(card), status: 400}
       end
@@ -20,6 +19,7 @@ class CardsController < ApplicationController
       format.json {render :json => {message: "刪除成功"}, status: 200}
     end
   end
+  
   private
   def find_list 
     @list = List.find(params[:list_id])

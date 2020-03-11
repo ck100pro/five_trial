@@ -14,6 +14,7 @@ let show = new Vue({
       resetButton: function(event){
         let targetId = event.target.id
         console.log(event.target)
+        console.log(this.listItem)
         this.$refs.ListCreate.listVisible = true
         this.$refs.ListView.cardVisibleController = NaN
         console.log(this.$refs.ListView.cardVisibleController)
