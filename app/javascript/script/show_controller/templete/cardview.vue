@@ -28,6 +28,7 @@
         })
         .then(function(response){
           console.log(that)
+          console.log(response)
           let listAndCardIndex = {"list_index": `${listItem.index}`, "card_index": `${index}`}
           that.$emit("delett-card",listAndCardIndex)
         })
