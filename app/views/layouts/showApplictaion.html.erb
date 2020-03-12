@@ -7,17 +7,19 @@
 
     <%= stylesheet_pack_tag 'application', media: 'all'%>
     <%= javascript_pack_tag 'application'%>
-    <%= javascript_pack_tag 'indexApplication'%>
+    <%= javascript_pack_tag 'showApplication'%>
   </head>
 
   <body class="h-full relative">
     <div class="h-full flex flex-col ">
-      <div class="w-full h-auto">
+      <div>
         <%= render "shared/navbar" %>
       </div>
 
-      <div id="controllerItems" class="flex-grow">
-        <%= yield %>
+      <div @click="resetButton" id="controllerShow" class="flex w-full flex-grow bg-teal-200 overflow-x-scroll overflow-y-hidden">
+        <div class="flex">
+          <%= yield %>
+        </div>
       </div>
     </div>
   </body>
