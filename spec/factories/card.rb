@@ -1,5 +1,7 @@
-FactoryBot.defind do
-    factory :card do
-      title {Faker::Name.name}
-    end
+require 'faker'
+
+FactoryBot.define do
+  factory :card do
+    title {Faker::Name.name}
   end
+end
