@@ -32,6 +32,7 @@ RSpec.describe ListsController, type: :controller do
 
     it "update success" do
       patch :update, params: @params
+      # expect(list.reload.title).to eq('update')
       expect(List.find(@list.id).title).to eq "update"
       expect(response.content_type).to eq "application/json; charset=utf-8"
     end
@@ -44,3 +45,4 @@ RSpec.describe ListsController, type: :controller do
     end
   end
 end
+
