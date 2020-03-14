@@ -15,7 +15,7 @@
           </div>
           <div v-show="cardVisibleController == index" class="h-8 w-64 border-black border-solid border-2 rounded">
             <input v-model="cardName" ref="cardCreateInput" class="h-full w-full" type="text">
-            <button @click="cardCreate($event, index)">送出{{value.id}}</button>
+            <button @click="cardCreate($event, index)">新增卡片</button>
           </div>
         </div>
       </div>

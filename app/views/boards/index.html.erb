@@ -7,7 +7,7 @@
     </div>
 
     <div @click="visible = !visible" class="board-button">
-      <span >新增看板</span>
+      <button>新增看板</button>
     </div>
   </div>
 
@@ -16,7 +16,7 @@
       <div @click="visible = !visible" class="text-right cursor-pointer"><i class="fas fa-times"></i></div>
       <%= form_for @board do |board| %>
         <%= board.text_field :title, class: "h-8 w-56 border-black border-solid border-2 rounded" %>
-        <%= board.submit %>
+        <%= board.submit "建立看板" %>
       <% end %>
     </div>
   </div>

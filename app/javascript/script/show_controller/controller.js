@@ -39,7 +39,7 @@ let show = new Vue({
       },      
       updateList: function(updateList, index){
         if(updateList.status == 400){
-          Vue.set(show,"message","卡片更新失敗")
+          Vue.set(show,"message","List更新失敗")
         } else {
           let newListTitle = updateList.data.title
           Vue.set(show,"message","List更新成功")
@@ -62,7 +62,7 @@ let show = new Vue({
         let listData = data.detail[0]
         let length = show.listItem.length 
         Vue.set(show.listItem,length,listData)
-        Vue.set(show,"message","LIST新增成功")
+        Vue.set(show,"message","List新增成功")
       });
       listenList.addEventListener('ajax:error', function(data){
         let listData = data.detail[0]
