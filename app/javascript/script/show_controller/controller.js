@@ -33,7 +33,7 @@ let show = new Vue({
           }
         })
         .then(function(response){
-          that.$store.commit("addList", response);
+          that.$store.commit("getAllItem/addList", response);
           that.message = "List新增成功"
         })
         .catch(function(error){

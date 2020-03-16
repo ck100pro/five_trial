@@ -1,20 +1,20 @@
 <template>
   <div class="flex">
     <div v-for="value, index in allItem" :data-position="index" id="list-item" class="mr-2 p-1">
-      <div @click.stop class="bg-pink-200">
+      <div class="bg-pink-200">
         <div class="h-8 w-64 border-black border-solid border-2 rounded">
-          <span @click="listUpdateButton(index)"  v-show="listVisibleUpdate != index" class="block h-full w-full cursor-pointer">{{value.title}}</span>
-          <input  @keydown.enter="listUpdate(index,value)" v-show="listVisibleUpdate == index" :value="value.title" ref="listUpdateInput"  type="text" class="block h-full w-full cursor-pointer" >
+          <span @click="listUpdateButton(index)" v-show="listVisibleUpdate != index" class="block h-full w-full cursor-pointer">{{value.title}}</span>
+          <input  @keydown.enter="listUpdate(index,value)" @blur="listHiddenInput" v-show="listVisibleUpdate == index" :value="value.title" ref="listUpdateInput"  type="text" class="block h-full w-full cursor-pointer" >
         </div>
 
         <card-view :card-item="value.card" :list-item="{index: index, id: value.id}" v-on="$listeners"></card-view>
 
-        <div @click.stop>
+        <div>
           <div v-show="cardVisibleController != index" class="h-8 w-64 border-black border-solid border-2 rounded">
             <span @click="cardCreateButton(index)" class="block h-full w-full cursor-pointer">新增卡片</span>
           </div>
-          <div v-show="cardVisibleController == index" class="h-8 w-64 border-black border-solid border-2 rounded">
-            <input v-model="cardName" ref="cardCreateInput" class="h-full w-full" type="text">
+          <div v-show="cardVisibleController == index"  class="h-8 w-64 border-black border-solid border-2 rounded">
+            <input v-model="cardName" ref="cardCreateInput" @blur="cardHiddenInput" class="h-full w-full" type="text">
             <button @click="cardCreate($event, index)">新增卡片</button>
           </div>
         </div>
@@ -28,7 +28,6 @@ import CardView from "./cardview.vue"
 import { mapState } from "vuex"
 
 export default {
-
   data: function(){
     return {
       cardName: null,
@@ -37,17 +36,17 @@ export default {
     }
   },
   methods: {
-    selectUrl: function(event){
-      let path = location.pathname
-      let dataPosition = undefined
-      let targetHtml = event.target
+    // selectUrl: function(event){
+    //   let path = location.pathname
+    //   let dataPosition = undefined
+    //   let targetHtml = event.target
 
-      while(dataPosition == undefined){
-        dataPosition = targetHtml.parentNode.dataset.position
-        targetHtml = targetHtml.parentNode
-      }
-      return path + "/lists/" + this.totalItem[dataPosition].id + "/cards.json"
-    },
+    //   while(dataPosition == undefined){
+    //     dataPosition = targetHtml.parentNode.dataset.position
+    //     targetHtml = targetHtml.parentNode
+    //   }
+    //   return path + "/lists/" + this.totalItem[dataPosition].id + "/cards.json"
+    // },
     cardCreateButton: function(index){
       this.cardVisibleController = index
       this.$nextTick(() => {
@@ -59,6 +58,12 @@ export default {
       this.$nextTick(() => {
         this.$refs.listUpdateInput[index].focus()
       })
+    },
+    listHiddenInput: function(){
+      this.listVisibleUpdate = NaN
+    },
+    cardHiddenInput: function(){
+      this.cardVisibleController = NaN
     },
     cardCreate: function(event, index){
       let url = this.selectUrl(event)
@@ -101,18 +106,8 @@ export default {
         Vue.set(that,"listVisibleUpdate", NaN)
       })
     },
-    resetButton: function(){
-      this.cardVisibleController = NaN
-    }
   },
-    computed: mapState('getAllItem', ['allItem']),
-  //   {
-  //   all() {
-  //     console.log(mapState(['allItem']))
-  //     return mapState(['allItem'])
-      
-  //   }
-  // }
+  computed: mapState('getAllItem', ['allItem']),
   components: {
     CardView
   }
