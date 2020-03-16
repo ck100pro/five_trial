@@ -35,9 +35,6 @@ export default {
       listVisibleUpdate: NaN,
     }
   },
-  props: [
-    "totalItem"
-  ],
   methods: {
     selectUrl: function(event){
       let path = location.pathname
@@ -109,7 +106,7 @@ export default {
   },
     computed: {
     all() {
-      return this.$store.state.allItem.allItem
+      return this.$store.state.getAllItem.allItem
     }
   },
   components: {

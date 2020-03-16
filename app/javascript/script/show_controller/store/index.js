@@ -1,12 +1,15 @@
 import Vuex from 'vuex'
 
-const allItem = {
+const getAllItem = {
   state: {
     allItem: undefined
   },
   mutations: {
-    addAllItem(state, allItem) {
-      state.allItem = allItem.data
+    addAllItem(state, response) {
+      state.allItem = response.data
+    },
+    addList(state, response) {
+      state.allItem.push(response.data)
     }
   },
   actions: {
@@ -23,6 +26,6 @@ const allItem = {
 
 export default new Vuex.Store({
   modules: {
-    allItem
+    getAllItem
   }
 });
