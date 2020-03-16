@@ -69,7 +69,7 @@ let show = new Vue({
       }
     },
     created: function(){
-      this.$store.dispatch("getAllItem");
+      this.$store.dispatch("getAllItem/getAllItem");
     },
     mounted: function(){
       // let listenList = document.getElementById('listForm')

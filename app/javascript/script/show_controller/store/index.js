@@ -1,31 +1,8 @@
 import Vuex from 'vuex'
-
-const getAllItem = {
-  state: {
-    allItem: undefined
-  },
-  mutations: {
-    addAllItem(state, response) {
-      state.allItem = response.data
-    },
-    addList(state, response) {
-      state.allItem.push(response.data)
-    }
-  },
-  actions: {
-    getAllItem({commit}) {
-      let path = location.pathname
-      let url = path + ".json"
-      axios.get(`${url}`)
-        .then(function(response){
-          commit("addAllItem", response)
-      })
-    }
-  }
-}
+import getAllItem_module from './getallitem.js'
 
 export default new Vuex.Store({
   modules: {
-    getAllItem
+    getAllItem: getAllItem_module,
   }
 });
