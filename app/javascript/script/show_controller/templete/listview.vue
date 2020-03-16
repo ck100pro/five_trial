@@ -1,6 +1,6 @@
 <template>
   <div class="flex">
-    <div v-for="value, index in totalItem" :data-position="index" id="list-item" class="mr-2 p-1">
+    <div v-for="value, index in all" :data-position="index" id="list-item" class="mr-2 p-1">
       <div @click.stop class="bg-pink-200">
         <div class="h-8 w-64 border-black border-solid border-2 rounded">
           <span @click="listUpdateButton(index)"  v-show="listVisibleUpdate != index" class="block h-full w-full cursor-pointer">{{value.title}}</span>
@@ -105,6 +105,11 @@ export default {
     },
     resetButton: function(){
       this.cardVisibleController = NaN
+    }
+  },
+    computed: {
+    all() {
+      return this.$store.state.allItem.allItem
     }
   },
   components: {

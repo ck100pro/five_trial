@@ -1,3 +1,4 @@
+import store from "./store"
 import ListView from "./templete/listview.vue"
 import ListCreate from "./templete/listcreate.vue"
 
@@ -6,16 +7,19 @@ import ListCreate from "./templete/listcreate.vue"
 document.addEventListener('DOMContentLoaded', () => {
 let show = new Vue({
     el: "#controllerShow",
+    store,
     data: {
-      listItem: undefined,
       message: undefined
     },
     methods: {
       resetButton: function(event){
-        let targetId = event.target.id
-        console.log(this.listItem)
-        this.$refs.ListCreate.listVisible = true
-        this.$refs.ListView.cardVisibleController = NaN
+        // let targetId = event.target.id
+        // console.log(this.listItem)
+        // this.$refs.ListCreate.listVisible = true
+        // this.$refs.ListView.cardVisibleController = NaN
+        // this.$store.dispatch("getAllItem");
+        // console.log(this.$store.state.allItem.allItem)
+        // console.log(this.listItem)
         // if (targetId != "listButton" || targetId != "cardButton"){
         //   this.$refs.ListCreate.listVisible = true
         //   this.$refs.ListView.cardVisibleController = NaN
@@ -48,26 +52,20 @@ let show = new Vue({
       }
     },
     created: function(){
-      let path = location.pathname
-      let url = path + ".json"
-      console.log(url)
-      axios.get(`${url}`)
-        .then(function(response){
-          Vue.set(show,"listItem",response.data)
-        })
+      this.$store.dispatch("getAllItem");
     },
     mounted: function(){
-      let listenList = document.getElementById('listForm')
-      listenList.addEventListener('ajax:success', function(data){
-        let listData = data.detail[0]
-        let length = show.listItem.length 
-        Vue.set(show.listItem,length,listData)
-        Vue.set(show,"message","List新增成功")
-      });
-      listenList.addEventListener('ajax:error', function(data){
-        let listData = data.detail[0]
-        Vue.set(show,"message",listData.title[0])
-      });
+      // let listenList = document.getElementById('listForm')
+      // listenList.addEventListener('ajax:success', function(data){
+      //   let listData = data.detail[0]
+      //   let length = show.listItem.length 
+      //   Vue.set(show.listItem,length,listData)
+      //   Vue.set(show,"message","List新增成功")
+      // });
+      // listenList.addEventListener('ajax:error', function(data){
+      //   let listData = data.detail[0]
+      //   Vue.set(show,"message",listData.title[0])
+      // });
     },
     components: {
       ListView,
@@ -75,13 +73,3 @@ let show = new Vue({
     }
   })
 })
-
-// import App from '../templete/createlist.vue'
-// document.addEventListener('DOMContentLoaded', () => {
-//   const app = new Vue({
-//     render: h => h(App)
-//   }).$mount()
-
-//   console.log(app.$el)
-//   console.log(app)
-// })
