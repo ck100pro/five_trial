@@ -8,6 +8,9 @@ const mutations = {
   },
   addList(state, response) {
     state.allItem.push(response.data)
+  },
+  listTitleUpdate(state, response) {
+    state.allItem[response.index].title = response.title
   }
 };
 

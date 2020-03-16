@@ -58,31 +58,18 @@ let show = new Vue({
         Vue.set(show,"message","卡片刪除成功")
         Vue.delete(show.listItem[listIndex].card, cardIndex)
       },      
-      updateList: function(updateList, index){
+      listTitleUpdate: function(updateList, index){
         if(updateList.status == 400){
-          Vue.set(show,"message","List更新失敗")
+          this.message = "List更新失敗"
         } else {
-          let newListTitle = updateList.data.title
-          Vue.set(show,"message","List更新成功")
-          Vue.set(show.listItem[index], "title", newListTitle)
+          let newListTitle =  {index: index, title: updateList.data.title}
+          this.$store.commit("getAllItem/listTitleUpdate", newListTitle);
+          this.message = "List更新成功"
         }
       }
     },
     created: function(){
       this.$store.dispatch("getAllItem/getAllItem");
-    },
-    mounted: function(){
-      // let listenList = document.getElementById('listForm')
-      // listenList.addEventListener('ajax:success', function(data){
-      //   let listData = data.detail[0]
-      //   let length = show.listItem.length 
-      //   Vue.set(show.listItem,length,listData)
-      //   Vue.set(show,"message","List新增成功")
-      // });
-      // listenList.addEventListener('ajax:error', function(data){
-      //   let listData = data.detail[0]
-      //   Vue.set(show,"message",listData.title[0])
-      // });
     },
     components: {
       ListView

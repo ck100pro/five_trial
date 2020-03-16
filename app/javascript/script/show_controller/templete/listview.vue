@@ -4,7 +4,7 @@
       <div class="bg-pink-200">
         <div class="h-8 w-64 border-black border-solid border-2 rounded">
           <span @click="listUpdateButton(index)" v-show="listVisibleUpdate != index" class="block h-full w-full cursor-pointer">{{value.title}}</span>
-          <input  @keydown.enter="listUpdate(index,value)" @blur="listHiddenInput" v-show="listVisibleUpdate == index" :value="value.title" ref="listUpdateInput"  type="text" class="block h-full w-full cursor-pointer" >
+          <input  @keydown.enter="listTitleUpdate(index,value)" @blur="listHiddenInput" v-show="listVisibleUpdate == index" :value="value.title" ref="listUpdateInput"  type="text" class="block h-full w-full cursor-pointer" >
         </div>
 
         <card-view :card-item="value.card" :list-item="{index: index, id: value.id}" v-on="$listeners"></card-view>
@@ -85,7 +85,7 @@ export default {
       Vue.set(this,"cardName", null)
       this.$refs.cardCreateInput[index].focus()
     },
-    listUpdate: function(index,data){
+    listTitleUpdate: function(index,data){
       let url = location.pathname + `/lists/${data.id}.json`
       let that = this
       let newListTitle = this.$refs.listUpdateInput[index].value
@@ -95,12 +95,10 @@ export default {
         }
       })
       .then(function(response){
-        let listUpdateData = response
-        that.$emit("update-list", listUpdateData, index)
+        that.$emit("list-title-update", response, index)
       })
       .catch(function(error){
-        let listUpdateData = error.response
-        that.$emit("update-list", listUpdateData)
+        that.$emit("list-title-update", error.response)
       })
       .then(function(){
         Vue.set(that,"listVisibleUpdate", NaN)
