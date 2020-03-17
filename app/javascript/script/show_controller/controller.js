@@ -1,5 +1,6 @@
 import store from "./store"
 import ListView from "./templete/listview.vue"
+import ListCreate from "./templete/listcreate.vue"
 
 document.addEventListener('DOMContentLoaded', () => {
 let show = new Vue({
@@ -7,7 +8,6 @@ let show = new Vue({
     store,
     data: {
       message: undefined,
-      listTitle: undefined
     },
     methods: {
       resetButton: function(event){
@@ -23,25 +23,6 @@ let show = new Vue({
         //   this.$refs.ListView.cardVisibleController = NaN
         //   console.log("123456")
         // }
-      },
-      listCreate: function(){
-        let url = location.pathname + "/lists.json"
-        let that = this
-        axios.post(`${url}`, {
-          list:{
-            title: this.listTitle
-          }
-        })
-        .then(function(response){
-          that.$store.commit("getAllItem/addList", response);
-          that.message = "List新增成功"
-        })
-        .catch(function(error){
-          that.message = "List新增失敗"
-        })
-        .then(function(){
-          that.listTitle = ""
-        })
       },
       getNewCard: function(data){
         if (data.status == 400){
@@ -72,7 +53,8 @@ let show = new Vue({
       this.$store.dispatch("getAllItem/getAllItem");
     },
     components: {
-      ListView
+      ListView,
+      ListCreate
     }
   })
 })

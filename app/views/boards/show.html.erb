@@ -1,22 +1,8 @@
-  <p>{{message}}</p>
-  <p><% notice %></p>
-  <div id="list-group" class="flex">
-    <list-view ref="ListView" :total-item="listItem" @update-card="getNewCard" @list-title-update="listTitleUpdate" @delett-card="deleteCard"></list-view>
-  </div>
+<p>{{message}}</p>
+<p><% notice %></p>
+<div id="list-group" class="flex">
+  <list-view ref="ListView" :total-item="listItem" @update-card="getNewCard" @list-title-update="listTitleUpdate" @delett-card="deleteCard"></list-view>
+</div>
 
-
-  <div class="p-1">
-    <div>
-      <div class="h-8 w-64 border-black border-solid border-2 rounded">
-        <button id="listCreateButton" class="block h-full w-full cursor-pointer">新增列表</button>
-      </div>
-    </div>
-    <div>
-      <input v-model="listTitle" type="text" class="h-8 w-64 border-black border-solid border-2 rounded">
-      <div>
-        <button @click="listCreate" id="listCreate">新增項目</button>
-        <i class="fas fa-times"></i>
-      </div>
-    </div>
-  </div>
+<list-create></list-create>
 
