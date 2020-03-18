@@ -10,7 +10,7 @@
         v-model="listTitle"
         type="text"
         class="h-8 w-64 border-black border-solid border-2 rounded"
-      >
+      />
       <div>
         <button @click="listCreate" id="listSendCreate">送出清單</button>
         <i class="fas fa-times"></i>
@@ -38,10 +38,10 @@ export default {
         })
         .then(function(response) {
           that.$store.commit("getAllItem/addList", response);
-          that.$store.commit("addMessages/addMessage", "List新增成功")
+          that.$store.commit("addMessages/addMessage", "List新增成功");
         })
         .catch(function(error) {
-          that.$store.commit("addMessages/addMessage", "List新增失敗")
+          that.$store.commit("addMessages/addMessage", "List新增失敗");
         })
         .then(function() {
           that.listTitle = "";

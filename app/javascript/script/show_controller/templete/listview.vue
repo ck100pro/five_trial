@@ -22,7 +22,8 @@
 
         <card-view
           :card-item="value.card"
-          :list-item="{index: index, id: value.id}"
+          :list-index="index"
+          :list-id="value.id"
           v-on="$listeners"
         ></card-view>
 
@@ -40,22 +41,10 @@ import { mapState } from "vuex";
 export default {
   data: function() {
     return {
-      cardVisibleController: NaN,
       listVisibleUpdate: NaN
     };
   },
   methods: {
-    // selectUrl: function(event){
-    //   let path = location.pathname
-    //   let dataPosition = undefined
-    //   let targetHtml = event.target
-
-    //   while(dataPosition == undefined){
-    //     dataPosition = targetHtml.parentNode.dataset.position
-    //     targetHtml = targetHtml.parentNode
-    //   }
-    //   return path + "/lists/" + this.totalItem[dataPosition].id + "/cards.json"
-    // },
     listUpdateButton: function(index) {
       this.listVisibleUpdate = index;
       this.$nextTick(() => {
