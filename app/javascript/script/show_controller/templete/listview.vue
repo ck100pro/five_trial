@@ -3,37 +3,45 @@
     <div v-for="value, index in allItem" :data-position="index" id="list-item" class="mr-2 p-1">
       <div class="bg-pink-200">
         <div class="h-8 w-64 border-black border-solid border-2 rounded">
-          <span @click="listUpdateButton(index)" v-show="listVisibleUpdate != index" class="block h-full w-full cursor-pointer">{{value.title}}</span>
-          <input  @keydown.enter="listTitleUpdate(index,value)" @blur="listHiddenInput" v-show="listVisibleUpdate == index" :value="value.title" ref="listUpdateInput"  type="text" class="block h-full w-full cursor-pointer" >
+          <span
+            @click="listUpdateButton(index)"
+            v-show="listVisibleUpdate != index"
+            class="block h-full w-full cursor-pointer"
+          >{{value.title}}</span>
+          <input
+            @keydown.enter="listTitleUpdate(index,value)"
+            @blur="listHiddenInput"
+            v-show="listVisibleUpdate == index"
+            :value="value.title"
+            ref="listUpdateInput"
+            type="text"
+            class="block h-full w-full cursor-pointer"
+          />
         </div>
 
-        <card-view :card-item="value.card" :list-item="{index: index, id: value.id}" v-on="$listeners"></card-view>
+        <card-view
+          :card-item="value.card"
+          :list-item="{index: index, id: value.id}"
+          v-on="$listeners"
+        ></card-view>
 
-        <div>
-          <div v-show="cardVisibleController != index" class="h-8 w-64 border-black border-solid border-2 rounded">
-            <span @click="cardCreateButton(index)" class="block h-full w-full cursor-pointer">新增卡片</span>
-          </div>
-          <div v-show="cardVisibleController == index"  class="h-8 w-64 border-black border-solid border-2 rounded">
-            <input v-model="cardName" ref="cardCreateInput" @blur="cardHiddenInput" class="h-full w-full" type="text">
-            <button @click="cardCreate($event, index)">新增卡片</button>
-          </div>
-        </div>
+        <card-create :list-item="{index: index, id: value.id}"></card-create>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import CardView from "./cardview.vue"
-import { mapState } from "vuex"
+import CardView from "./cardview.vue";
+import CardCreate from "./cardcreate.vue";
+import { mapState } from "vuex";
 
 export default {
-  data: function(){
+  data: function() {
     return {
-      cardName: null,
-      cardVisibleController : NaN,
-      listVisibleUpdate: NaN,
-    }
+      cardVisibleController: NaN,
+      listVisibleUpdate: NaN
+    };
   },
   methods: {
     // selectUrl: function(event){
@@ -47,67 +55,40 @@ export default {
     //   }
     //   return path + "/lists/" + this.totalItem[dataPosition].id + "/cards.json"
     // },
-    cardCreateButton: function(index){
-      this.cardVisibleController = index
+    listUpdateButton: function(index) {
+      this.listVisibleUpdate = index;
       this.$nextTick(() => {
-        this.$refs.cardCreateInput[index].focus()
-      })
-    },
-    listUpdateButton: function(index){
-      this.listVisibleUpdate = index
-      this.$nextTick(() => {
-        this.$refs.listUpdateInput[index].focus()
-      })
-    },
-    listHiddenInput: function(){
-      this.listVisibleUpdate = NaN
-    },
-    cardHiddenInput: function(){
-      this.cardVisibleController = NaN
-    },
-    cardCreate: function(event, index){
-      let url = this.selectUrl(event)
-      let that = this
-      axios.post(`${url}`,{
-        card:{
-          title: this.cardName
-        }
-      })
-      .then(function(response){
-        let cardData = response.data
-        console.log(cardData)
-        that.$emit("update-card", cardData)
-      })
-      .catch(function(error){
-        let cardData = error.response
-        that.$emit("update-card", cardData)
+        this.$refs.listUpdateInput[index].focus();
       });
-      Vue.set(this,"cardName", null)
-      this.$refs.cardCreateInput[index].focus()
     },
-    listTitleUpdate: function(index,data){
-      let url = location.pathname + `/lists/${data.id}.json`
-      let that = this
-      let newListTitle = this.$refs.listUpdateInput[index].value
-      axios.patch(`${url}`,{
-        list:{
-          title: newListTitle
-        }
-      })
-      .then(function(response){
-        that.$emit("list-title-update", response, index)
-      })
-      .catch(function(error){
-        that.$emit("list-title-update", error.response)
-      })
-      .then(function(){
-        Vue.set(that,"listVisibleUpdate", NaN)
-      })
+    listHiddenInput: function() {
+      this.listVisibleUpdate = NaN;
     },
+    listTitleUpdate: function(index, data) {
+      let url = location.pathname + `/lists/${data.id}.json`;
+      let that = this;
+      let newListTitle = this.$refs.listUpdateInput[index].value;
+      axios
+        .patch(`${url}`, {
+          list: {
+            title: newListTitle
+          }
+        })
+        .then(function(response) {
+          that.$emit("list-title-update", response, index);
+        })
+        .catch(function(error) {
+          that.$emit("list-title-update", error.response);
+        })
+        .then(function() {
+          Vue.set(that, "listVisibleUpdate", NaN);
+        });
+    }
   },
-  computed: mapState('getAllItem', ['allItem']),
+  computed: mapState("getAllItem", ["allItem"]),
   components: {
-    CardView
+    CardView,
+    CardCreate
   }
-}
+};
 </script>

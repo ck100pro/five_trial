@@ -1,5 +1,5 @@
-const state = { 
-  allItem: undefined 
+const state = {
+  allItem: undefined
 };
 
 const mutations = {
@@ -8,6 +8,9 @@ const mutations = {
   },
   addList(state, response) {
     state.allItem.push(response.data)
+  },
+  addCard(state, response) {
+    state.allItem[response.index].card.push(response)
   },
   listTitleUpdate(state, response) {
     state.allItem[response.index].title = response.title
