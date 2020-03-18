@@ -1,11 +1,12 @@
 <template>
   <div class="flex">
-    <div v-for="value, index in allItem" :data-position="index" id="list-item" class="mr-2 p-1">
+    <div v-for="value, index in allItem" class="mr-2 p-1">
       <div class="bg-pink-200">
         <div class="h-8 w-64 border-black border-solid border-2 rounded">
           <span
             @click="listUpdateButton(index)"
             v-show="listVisibleUpdate != index"
+            :id="'list-item-' + index"
             class="block h-full w-full cursor-pointer"
           >{{value.title}}</span>
           <input

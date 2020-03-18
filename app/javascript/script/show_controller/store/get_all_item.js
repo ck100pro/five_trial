@@ -12,6 +12,9 @@ const mutations = {
   addCard(state, response) {
     state.allItem[response.index].card.push(response)
   },
+  deleteCard(state, response) {
+    state.allItem[response.listIndex].card.splice(response.cardIndex)
+  },
   listTitleUpdate(state, response) {
     state.allItem[response.index].title = response.title
   }

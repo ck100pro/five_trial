@@ -21,16 +21,14 @@
       },
       cardDelete:function(index){
         let that = this
-        let listItem = this.listItem
         let cardId = this.cardItem[index].id
-        let url = location.pathname + `/lists/${listItem.id}/cards/${cardId}.json` 
+        let url = location.pathname + `/lists/${this.listItem.id}/cards/${cardId}.json` 
         axios.delete(`${url}`,{
         })
         .then(function(response){
-          console.log(that)
-          console.log(response)
-          let listAndCardIndex = {"list_index": `${listItem.index}`, "card_index": `${index}`}
-          that.$emit("delett-card",listAndCardIndex)
+          let listAndCardIndex = {"listIndex": `${that.listItem.index}`, "cardIndex": `${index}`}
+          that.$store.commit("getAllItem/deleteCard", listAndCardIndex);
+          that.$store.commit("addMessages/addMessage", "Card刪除成功")
         })
         .then(function(error){
           //暫定不處理，Rails端的驗證還沒處理好
