@@ -13,7 +13,7 @@ const mutations = {
     state.allItem[response.index].card.push(response)
   },
   deleteCard(state, response) {
-    state.allItem[response.listIndex].card.splice(response.cardIndex)
+    state.allItem[response.listIndex].card.splice(response.cardIndex, 1)
   },
   listTitleUpdate(state, response) {
     state.allItem[response.index].title = response.title

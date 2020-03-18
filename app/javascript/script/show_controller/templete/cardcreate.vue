@@ -41,7 +41,8 @@ export default {
       });
     },
     cardCreate: function(event, index) {
-      let url = location.pathname + `/lists/${this.listItem.id}/cards.json`;
+      let url =
+        location.pathname + `/lists/${this.listItem.list_id}/cards.json`;
       let that = this;
       axios
         .post(`${url}`, {
@@ -51,6 +52,7 @@ export default {
         })
         .then(function(response) {
           let cardData = Object.assign(response.data, that.listItem);
+          console.log(cardData);
           that.$store.commit("getAllItem/addCard", cardData);
           that.$store.commit("addMessages/addMessage", "Card新增成功");
         })

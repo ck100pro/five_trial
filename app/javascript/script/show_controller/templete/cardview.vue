@@ -1,6 +1,6 @@
 <template>
   <div @click.stop class="max-h-68 overflow-auto">
-    <div v-for="value, index in cardItem" class="mb-2">
+    <div v-for="value, index in cardItem" :key="value.id" class="mb-2">
       <span
         @click="test"
         class="block h-32 w-full cursor-pointer border-dashed border-2"

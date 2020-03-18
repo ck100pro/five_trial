@@ -1,6 +1,6 @@
 <template>
   <div class="flex">
-    <div v-for="value, index in allItem" class="mr-2 p-1">
+    <div v-for="value, index in allItem" :key="value.id" class="mr-2 p-1">
       <div class="bg-pink-200">
         <div class="h-8 w-64 border-black border-solid border-2 rounded">
           <span
@@ -27,7 +27,7 @@
           v-on="$listeners"
         ></card-view>
 
-        <card-create :list-item="{index: index, id: value.id}"></card-create>
+        <card-create :list-item="{index: index, list_id: value.id}"></card-create>
       </div>
     </div>
   </div>
