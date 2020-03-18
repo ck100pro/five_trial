@@ -2,7 +2,7 @@
   <div class="p-1">
     <div>
       <div class="h-8 w-64 border-black border-solid border-2 rounded">
-        <button id="listViewButton" class="block h-full w-full cursor-pointer">新增清單</button>
+        <button id="listCreateButton" class="block h-full w-full cursor-pointer">新增清單</button>
       </div>
     </div>
     <div>
@@ -12,7 +12,7 @@
         class="h-8 w-64 border-black border-solid border-2 rounded"
       >
       <div>
-        <button @click="listCreate" id="listCreateButton">送出清單</button>
+        <button @click="listCreate" id="listSendCreate">送出清單</button>
         <i class="fas fa-times"></i>
       </div>
     </div>

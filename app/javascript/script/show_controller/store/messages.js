@@ -4,7 +4,6 @@ const state = {
 
 const mutations = {
   addMessage(state, response) {
-    console.log(response)
     state.messages = response
   }
 };
