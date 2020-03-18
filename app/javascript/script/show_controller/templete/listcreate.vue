@@ -38,10 +38,10 @@ export default {
         })
         .then(function(response) {
           that.$store.commit("getAllItem/addList", response);
-          that.message = "List新增成功";
+          that.$store.commit("addMessages/addMessage", "List新增成功")
         })
         .catch(function(error) {
-          that.message = "List新增失敗";
+          that.$store.commit("addMessages/addMessage", "List新增失敗")
         })
         .then(function() {
           that.listTitle = "";
