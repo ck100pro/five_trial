@@ -2,6 +2,7 @@
   <div @click.stop class="max-h-68 overflow-auto">
     <div v-for="value, index in cardItem" :key="value.id" class="mb-2">
       <span
+        :id='"card-item-" + index'
         @click="test"
         class="block h-32 w-full cursor-pointer border-dashed border-2"
       >{{value.title}}</span>
