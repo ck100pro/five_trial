@@ -22,11 +22,11 @@ RSpec.feature "ItemProcess", type: :feature, js: true do
         3.times {
           name = Faker::Name.name
 
-          fill_in "listTitleInput", with: name
+          find("input", class: "listTitleInput", visible: true).set(name)
           click_button "listSendCreate"
-          expect(List.last.title).to eq name
           expect(page.find("span#list-item-#{number}", text: name, visible: true).text).to eq name 
           expect(page).to have_text("List新增成功")
+          expect(List.last.title).to eq name
           number += 1
         }
       end
@@ -36,11 +36,11 @@ RSpec.feature "ItemProcess", type: :feature, js: true do
   
         click_button "listCreateButton"
         3.times {
-          fill_in "listTitleInput", with: " "
+          find("input", class: "listTitleInput", visible: true).set("")
           click_button "listSendCreate"
-          expect(List.last.title).not_to eq ""
           expect(page.has_css?('span#list-item-0', visible: true)).to be_falsey
           expect(page).to have_text("List新增失敗")
+          expect(List.last.title).not_to eq ""
         }
       end
     end
@@ -70,9 +70,6 @@ RSpec.feature "ItemProcess", type: :feature, js: true do
       end
     end
   end
-
-
-  
 
   context "card item" do
     let!(:board) { create(:board) }
