@@ -82,26 +82,27 @@ RSpec.feature "ItemProcess", type: :feature, js: true do
       visit board_path(board.id)
       num = 0
 
-      find('span#cardCreateButton', text: "新增卡片", visible: true).click
+      find('span', class: "cardCreateButton", text: "新增卡片", visible: true).click
       3.times {
         name = Faker::Name.name
 
-        find('input').set(name)
+        find('input', class: "cardCreateInput", visible: true).set(name)
         click_button "cardSendCreate"
         expect(page.find("span#card-item-#{num}", text: name, visible: true).text).to eq name
-        expect(Card.last.title).to eq name
         expect(page).to have_text("Card新增成功")
+        expect(Card.last.title).to eq name
         num += 1
       }
     end
 
     scenario "create fail" do
       visit board_path(board.id)
-      find('span#cardCreateButton', text: "新增卡片", visible: true).click
+
+      find('span', class: "cardCreateButton" , text: "新增卡片", visible: true).click
       3.times {
-        find('span', text: "新增卡片").click
-        find('input').set("")
+        find('input', class: "cardCreateInput", visible: true).set("")
         click_button "cardSendCreate"
+        expect(page.has_css?('span#card-item-0', visible: true)).to be_falsey
         expect(page).to have_text("Card新增失敗")
       }
     end
