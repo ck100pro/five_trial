@@ -4,6 +4,8 @@ rvm:
 install: bundle install
 services:
   - postgresql
+addons:
+  chrome: stable
 script:
   - bundle exec rake db:migrate:reset RAILS_ENV=test
   - bundle exec rspec

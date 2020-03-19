@@ -10,7 +10,7 @@ require 'rspec/rails'
 require 'spec_helper'
 require 'capybara/rspec'
 require 'database_cleaner'
-require 'webdrivers'
+require "selenium/webdriver"
 # Add additional requires below this line. Rails is not loaded until this point!
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
@@ -109,4 +109,16 @@ RSpec.configure do |config|
   config.append_after(:each) do
     DatabaseCleaner.clean
   end
+
+  Capybara.register_driver :chrome do |app|
+    Capybara::Selenium::Driver.new(app, browser: :chrome)
+  end
+  
+  Capybara.register_driver :headless_chrome do |app|
+    options = Selenium::WebDriver::Chrome::Options.new(args: %w[no-sandbox headless disable-gpu disable-dev-shm-usage])
+  
+    Capybara::Selenium::Driver.new(app, browser: :chrome, options: options)
+  end
+  
+  Capybara.javascript_driver = :headless_chrome # or optional :chrome for getting a browser locally
 end
