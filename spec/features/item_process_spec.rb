@@ -40,7 +40,7 @@ RSpec.feature "ItemProcess", type: :feature, js: true do
           click_button "listSendCreate"
           expect(page.has_css?('span#list-item-0', visible: true)).to be_falsey
           expect(page).to have_text("List新增失敗")
-          expect(List.last.title).not_to eq ""
+          expect(List.count).to eq 0
         }
       end
     end
@@ -101,6 +101,7 @@ RSpec.feature "ItemProcess", type: :feature, js: true do
         click_button "cardSendCreate"
         expect(page.has_css?('span#card-item-0', text: "" ,visible: true)).to be_falsey
         expect(page).to have_text("Card新增失敗")
+        expect(Card.count).to eq 0
       }
     end
 
