@@ -26,7 +26,6 @@ export default {
   data: () => {
     return {
       cardTitle: null,
-      view: false
     };
   },
   props: ["listItem"],
