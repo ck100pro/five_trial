@@ -99,19 +99,21 @@ RSpec.feature "ItemProcess", type: :feature, js: true do
       3.times {
         find('input', class: "cardCreateInput", visible: true).set("")
         click_button "cardSendCreate"
-        expect(page.has_css?('span#card-item-0', visible: true)).to be_falsey
+        expect(page.has_css?('span#card-item-0', text: "" ,visible: true)).to be_falsey
         expect(page).to have_text("Card新增失敗")
       }
     end
 
-    # context "card delete" do
-    #   let!(:card) { create(:card, :list_id => list.id) }
-    #   scenario "card delete" do
-    #     visit board_path(board.id)
+    context "card delete" do
+      let!(:card) { create(:card, :list_id => list.id) }
+      scenario "card delete" do
+        visit board_path(board.id)
   
-    #     find('i').click
-    #     expect(page).to have_text("卡片刪除成功")
-    #   end
-    # end
+        find('i', class: "cardDelete", visible: true).click
+        expect(page.has_css?('span#card-item-0', text: card.title, visible: true)).to be_falsey
+        expect(page).to have_text("Card刪除成功")
+        expect(Card.find_by(id: card.id)).to be_nil
+      end
+    end
   end
 end
