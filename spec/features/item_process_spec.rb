@@ -10,60 +10,65 @@ RSpec.feature "ItemProcess", type: :feature, js: true do
     expect(page).to have_current_path(board_path(Board.last.id))
   end
 
-  context "list create" do
+  context "list item" do
     let!(:board) { create(:board) }
-    scenario "create success" do
-      visit board_path(board.id)
-      number = 0
 
-      click_button "listCreateButton"
-      3.times {
-        name = Faker::Name.name
-        fill_in "listTitleInput", with: name
-        click_button "listSendCreate"
-        expect(List.last.title).to eq name
-        expect(page.find("span#list-item-#{number}", text: name, visible: true).text).to eq name 
-        expect(page).to have_text("List新增成功")
-        number += 1
-      }
+    context "list create" do
+      scenario "create success" do
+        visit board_path(board.id)
+        number = 0
+  
+        click_button "listCreateButton"
+        3.times {
+          name = Faker::Name.name
+          fill_in "listTitleInput", with: name
+          click_button "listSendCreate"
+          expect(List.last.title).to eq name
+          expect(page.find("span#list-item-#{number}", text: name, visible: true).text).to eq name 
+          expect(page).to have_text("List新增成功")
+          number += 1
+        }
+      end
+  
+      scenario "create fail" do
+        visit board_path(board.id)
+  
+        click_button "listCreateButton"
+        3.times {
+          fill_in "listTitleInput", with: " "
+          click_button "listSendCreate"
+          expect(List.last.title).not_to eq ""
+          expect(page.has_css?('span#list-item-0', visible: true)).to be_falsey
+          expect(page).to have_text("List新增失敗")
+        }
+      end
     end
 
-    scenario "create fail" do
-      visit board_path(board.id)
-
-      click_button "listCreateButton"
-      3.times {
-        fill_in "listTitleInput", with: " "
-        click_button "listSendCreate"
-        expect(List.last.title).not_to eq ""
-        expect(page.has_css?('span#list-item-0', visible: true)).to be_falsey
-        expect(page).to have_text("List新增失敗")
-      }
+    context "list update" do
+      let!(:list) { create(:list, :board_id => board.id) }
+      scenario "updte success" do
+        visit board_path(board.id)
+  
+        find('span', text: "#{list.title}").click
+        find('input').set("update").send_keys(:enter)
+  
+        expect(page).to have_text("List更新成功")
+        expect(list.reload.title).to eq "update"
+      end
+  
+      # scenario "updte error" do
+      #   visit board_path(board.id)
+  
+      #   find('span', text: "#{list.title}").click
+      #   find('input').set("").send_keys(:enter)
+  
+      #   expect(page).to have_text("List更新失敗")
+      #   expect(list.reload.title).not_to eq ""
+      # end
     end
   end
 
-    # context "list update" do
-    #   let!(:list) { create(:list, :board_id => board.id) }
-    #   scenario "updte success" do
-    #     visit board_path(board.id)
-  
-    #     find('span', text: "#{list.title}").click
-    #     find('input').set("update").send_keys(:enter)
-  
-    #     expect(page).to have_text("List更新成功")
-    #     expect(list.reload.title).to eq "update"
-    #   end
-  
-    #   scenario "updte error" do
-    #     visit board_path(board.id)
-  
-    #     find('span', text: "#{list.title}").click
-    #     find('input').set("").send_keys(:enter)
-  
-    #     expect(page).to have_text("List更新失敗")
-    #     expect(list.reload.title).not_to eq ""
-    #   end
-    # end
+
   
 
   # context "card item" do

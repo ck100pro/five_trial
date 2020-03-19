@@ -54,8 +54,8 @@ export default {
     listHiddenInput: function() {
       this.listVisibleUpdate = NaN;
     },
-    listTitleUpdate: function(index, data) {
-      let url = location.pathname + `/lists/${data.id}.json`;
+    listTitleUpdate: function(index, value) {
+      let url = location.pathname + `/lists/${value.id}.json`;
       let that = this;
       let newListTitle = this.$refs.listUpdateInput[index].value;
       axios
@@ -65,13 +65,17 @@ export default {
           }
         })
         .then(function(response) {
-          that.$emit("list-title-update", response, index);
+          that.$store.commit("getAllItem/listTitleUpdate", {
+            index: index,
+            title: response.data.title
+          });
+          that.$store.commit("addMessages/addMessage", "List-Update成功");
         })
         .catch(function(error) {
-          that.$emit("list-title-update", error.response);
+          that.$store.commit("addMessages/addMessage", "List-Update失敗");
         })
         .then(function() {
-          Vue.set(that, "listVisibleUpdate", NaN);
+          that.listVisibleUpdate = NaN
         });
     }
   },
