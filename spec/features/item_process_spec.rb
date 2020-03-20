@@ -8,6 +8,7 @@ RSpec.feature "ItemProcess", type: :feature, js: true do
     fill_in "board_title", with: "測試board新增"
     click_button "建立看板"
     expect(page).to have_current_path(board_path(Board.last.id))
+    expect(Board.last.title).to eq "測試board新增"
   end
 
   context "list item" do
