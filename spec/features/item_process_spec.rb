@@ -18,12 +18,12 @@ RSpec.feature "ItemProcess", type: :feature, js: true do
         visit board_path(board.id)
         number = 0
   
-        click_button "新增清單"
+        click_button "listCreateButton"
         3.times {
           name = Faker::Name.name
 
           find("input", class: "listTitleInput", visible: true).set(name)
-          click_button "送出清單"
+          click_button "listSendCreate"
           expect(page.find("span#list-item-#{number}", text: name, visible: true).text).to eq name 
           expect(page).to have_text("List新增成功")
           expect(List.last.title).to eq name
