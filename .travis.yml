@@ -3,20 +3,20 @@ language: ruby
 rvm:
 - 2.6.3
 
-dist: xenial
+dist: trusty
 
 services:
   - postgresql
-  - xvfb-run --server-args="-screen 0 1024x768x24" bundle exec rspec spec/features/*.rb
+  # - xvfb-run --server-args="-screen 0 1024x768x24" bundle exec rspec spec/features/*.rb
 
 addons:
   chrome: stable
 
 before_install:
   -  google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
-  - "export DISPLAY=:99.0"
+  # - "export DISPLAY=:99.0"
 
-  - sleep 3 # give xvfb some time to start
+  # - sleep 3 # give xvfb some time to start
 
 
 before_script:
@@ -35,5 +35,5 @@ install:
   - yarn
 
 script:
-  - xvfb-run make test
+  # - xvfb-run make test
   - bundle exec rspec
