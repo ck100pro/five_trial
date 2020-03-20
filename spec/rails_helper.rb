@@ -11,7 +11,6 @@ require 'spec_helper'
 require 'capybara/rspec'
 require 'database_cleaner'
 require "selenium/webdriver"
-require "chromedriver-helper"
 # Add additional requires below this line. Rails is not loaded until this point!
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
