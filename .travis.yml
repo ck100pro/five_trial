@@ -19,12 +19,13 @@ addons:
   chrome: stable
 
 env:
-  global:
-  - RAILS_ENV=test
-  - DRIVER=selenium_chrome
-  - CHROME_BIN=/usr/bin/google-chrome
-  - USE_COVERALLS=TRUE
-
+# 階段二
+# global:
+#   - RAILS_ENV=test
+#   - DRIVER=selenium_chrome
+#   - CHROME_BIN=/usr/bin/google-chrome
+#   - USE_COVERALLS=TRUE
+#階段一
 # before_install:
 #   - sudo apt-get update
 #   - sudo apt-get install -y xvfb libappindicator1 fonts-liberation
