@@ -17,8 +17,7 @@ before_install:
   - "export DISPLAY=:99.0"
 
   - sleep 3 # give xvfb some time to start
-  - rackup  # start a Web server
-  - sleep 3
+
 
 before_script:
   - bundle exec rake db:create db:migrate RAILS_ENV=test
