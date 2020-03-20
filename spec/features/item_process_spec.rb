@@ -17,7 +17,6 @@ RSpec.feature "ItemProcess", type: :feature, js: true do
       scenario "create success" do
         visit board_path(board.id)
         number = 0
-        puts page.html
         click_button "listCreateButton"
         3.times {
           name = Faker::Name.name
