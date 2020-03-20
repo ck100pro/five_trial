@@ -3,7 +3,7 @@ class Card < ApplicationRecord
 
   belongs_to :list
 
-  scope :create_time_asc, -> { order(created_at: :asc) }
+  scope :create_time_asc, -> { order(created_at: :desc) }
 
   def to_json
     {id: id, title: title, list_id: list_id}
