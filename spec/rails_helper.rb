@@ -111,13 +111,15 @@ RSpec.configure do |config|
     DatabaseCleaner.clean
   end
 
-  capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
-    'chromeOptions' => {
-      'args' => ['--headless', '--disable-gpu', '--no-sandbox', '--disable-dev-shm-usage']
-    }
-  )
   Capybara.register_driver :chrome do |app|
-    Capybara::Selenium::Driver.new(app, browser: :chrome, desired_capabilities: capabilities)
+    Capybara::Selenium::Driver.new(app, browser: :chrome)
   end
-  Capybara.javascript_driver = :chrome
+  
+  Capybara.register_driver :headless_chrome do |app|
+    options = Selenium::WebDriver::Chrome::Options.new(args: %w[no-sandbox headless disable-gpu disable-dev-shm-usage])
+  
+    Capybara::Selenium::Driver.new(app, browser: :chrome, options: options)
+  end
+  
+  Capybara.javascript_driver = :headless_chrome
 end
