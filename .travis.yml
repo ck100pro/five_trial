@@ -3,21 +3,8 @@ language: ruby
 rvm:
 - 2.6.3
 
-dist: xenial
-
 services:
   - postgresql
-
-addons:
-  chrome: stable
-
-before_install:
-  - "export DISPLAY=:99.0"
-  - sleep 3 
-
-
-before_script:
-  - bundle exec rake db:create db:migrate RAILS_ENV=test
 
 cache:
   bundler: true
@@ -25,12 +12,35 @@ cache:
     - node_modules
   yarn: true
 
+gemfile: 
+  - Gemfile
+
+addons:
+  chrome: stable
+
+env:
+  global:
+  - RAILS_ENV=test
+  - DRIVER=selenium_chrome
+  - CHROME_BIN=/usr/bin/google-chrome
+  - USE_COVERALLS=TRUE
+
+before_install:
+  - sudo apt-get update
+  - sudo apt-get install -y xvfb libappindicator1 fonts-liberation
+  - wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+  - sudo dpkg -i google-chrome*.deb
+  - "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen scn 1600x1200x16"
+
 install:
   - bundle install
   - nvm install node
   - npm i -g yarn
   - yarn
 
+before_script:
+  - bundle exec rake db:create db:migrate RAILS_ENV=test
+  - "export DISPLAY=:99"
+
 script:
-  - xvfb-run --server-args="-screen 0 1024x768x24" bundle exec rspec spec/features/*.rb
-  - bundle exec rspec spec/controller/*.rb
+  - bundle exec rspec
