@@ -8,7 +8,7 @@ class ListsController < ApplicationController
       if list.save
         format.json {render :json => list_create_success(list), status: 200}
       else
-        format.json {render :json => list_create_error(list), status: 400}
+        format.json {render :json => list_error_message(list), status: 400}
       end
     end
   end

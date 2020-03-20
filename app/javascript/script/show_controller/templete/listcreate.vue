@@ -1,12 +1,25 @@
 <template>
   <div class="p-1">
-    <div v-show="listVisible">
+    <div v-show="!view">
       <div class="h-8 w-64 border-black border-solid border-2 rounded">
-        <span @click.self.stop="onclick" id="listButton" class="block h-full w-full cursor-pointer">新增列表</span>
+        <button
+          @click="listCreateButton"
+          name="listCreateButton"
+          class="block h-full w-full cursor-pointer"
+        >新增清單</button>
       </div>
     </div>
-    <div @click.stop v-show="!listVisible">
-      <slot></slot>
+    <div v-show="view">
+      <input
+        ref="listCreateInput"
+        v-model="listTitle"
+        type="text"
+        class="listTitleInput h-8 w-64 border-black border-solid border-2 rounded"
+      />
+      <div>
+        <button @click="listCreate" name="listSendCreate">送出清單</button>
+        <i @click="listCreateButton" class="fas fa-times"></i>
+      </div>
     </div>
   </div>
 </template>
@@ -15,13 +28,41 @@
 export default {
   data: () => {
     return {
-      listVisible: true
-    }
+      listTitle: null,
+      view: false
+    };
   },
   methods: {
-    onclick: function(){
-      this.listVisible = !this.listVisible
+    listCreateButton: function() {
+      if (this.view == true) {
+        this.view = false;
+      } else {
+        this.view = true;
+      }
+      this.$nextTick(() => {
+        this.$refs.listCreateInput.focus();
+      });
+    },
+    listCreate: function() {
+      let url = location.pathname + "/lists.json";
+      let that = this;
+      axios
+        .post(`${url}`, {
+          list: {
+            title: this.listTitle
+          }
+        })
+        .then(function(response) {
+          that.$store.commit("getAllItem/addList", response);
+          that.$store.commit("addMessages/addMessage", "List新增成功");
+        })
+        .catch(function(error) {
+          that.$store.commit("addMessages/addMessage", "List新增失敗");
+        })
+        .then(function() {
+          that.listTitle = "";
+        });
     }
   }
-}
+};
 </script>>

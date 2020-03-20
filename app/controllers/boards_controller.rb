@@ -20,8 +20,8 @@ class BoardsController < ApplicationController
   def show
     @list = List.new
 
-    lists = @board.lists.includes(:cards).to_a.map do |list|
-      list.to_json.merge(card: list.cards.map(&:to_json))
+    lists = @board.lists.create_time_asc_includes_cards.to_a.map do |list|
+      list.to_json.merge(card: list.cards.create_time_asc.map(&:to_json))
     end
     
     respond_to do |format|
