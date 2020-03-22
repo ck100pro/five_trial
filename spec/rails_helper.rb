@@ -120,5 +120,5 @@ RSpec.configure do |config|
     Capybara::Selenium::Driver.new(app, browser: :chrome, options: options)
   end
   
-  Capybara.javascript_driver = :chrome
+  Capybara.javascript_driver = :headless_chrome
 end
