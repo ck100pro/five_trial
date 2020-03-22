@@ -24,7 +24,6 @@
           :card-item="value.card"
           :list-index="index"
           :list-id="value.id"
-          v-on="$listeners"
         ></card-view>
 
         <card-create :list-item="{index: index, list_id: value.id}"></card-create>
