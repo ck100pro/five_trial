@@ -10,7 +10,7 @@ const mutations = {
     state.allItem.push(response.data)
   },
   addCard(state, response) {
-    state.allItem[response.index].card.push(response)
+    state.allItem[response.index].card.unshift(response)
   },
   deleteCard(state, response) {
     state.allItem[response.listIndex].card.splice(response.cardIndex, 1)

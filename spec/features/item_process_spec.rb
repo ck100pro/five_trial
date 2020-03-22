@@ -77,7 +77,6 @@ RSpec.feature "ItemProcess", type: :feature, js: true do
 
     scenario "create success" do
       visit board_path(board.id)
-      num = 0
 
       find('span', class: "cardCreateButton", text: "新增卡片", visible: true).click
       3.times {
@@ -85,10 +84,9 @@ RSpec.feature "ItemProcess", type: :feature, js: true do
 
         find('input', class: "cardCreateInput", visible: true).set(name)
         click_button "cardSendCreate"
-        expect(page.find("span#card-item-#{num}", text: name, visible: true).text).to eq name
+        expect(page.find("span#card-item-0", text: name, visible: true).text).to eq name
         expect(page).to have_text("Card新增成功")
         expect(Card.last.title).to eq name
-        num += 1
       }
     end
 

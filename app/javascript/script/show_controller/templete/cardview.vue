@@ -4,7 +4,7 @@
       <span
         :id='"card-item-" + index'
         @click="test"
-        class="block h-32 w-full cursor-pointer border-dashed border-2"
+        class="card-item block h-32 w-full cursor-pointer border-dashed border-2"
       >{{value.title}}</span>
       <i @click="cardDelete(index)" ref="cardDelete" class="cardDelete fas fa-times cursor-pointer"></i>
     </div>
