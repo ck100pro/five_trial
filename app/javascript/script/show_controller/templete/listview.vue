@@ -65,7 +65,7 @@ export default {
             index: index,
             title: response.data.title
           });
-          that.$store.commit("addMessages/addMessage", successMessage);
+          that.$store.commit("addMessages/addMessage", "類別名稱更新完成");
         })
         .catch(function(error) {
           let errorMessage = error.response.data.title.toString();

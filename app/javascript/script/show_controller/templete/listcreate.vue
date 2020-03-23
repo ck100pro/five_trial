@@ -53,9 +53,8 @@ export default {
           }
         })
         .then(function(response) {
-          let successMessage = response.data.messages
           that.$store.commit("getAllItem/addList", response);
-          that.$store.commit("addMessages/addMessage", successMessage);
+          that.$store.commit("addMessages/addMessage", "類別建立完成");
         })
         .catch(function(error) {
           let errorMessage = error.response.data.title.toString()
