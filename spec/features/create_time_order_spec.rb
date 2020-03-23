@@ -6,9 +6,10 @@ RSpec.feature 'createTimeOrder', type: :feature, js: true do
 
     scenario 'continuous create list' do
       visit board_path(board.id)
-      click_button 'listCreateButton'
+
       create_order = []
 
+      click_button 'listCreateButton'
       3.times do
         name = Faker::Name.name
         find('input', class: 'listTitleInput', visible: true).set(name)
@@ -29,8 +30,10 @@ RSpec.feature 'createTimeOrder', type: :feature, js: true do
 
     scenario 'continuous create card' do
       visit board_path(board.id)
-      find('span', class: 'cardCreateButton', text: '新增卡片', visible: true).click
+
       create_order = []
+
+      find('span', class: 'cardCreateButton', text: '新增文章', visible: true).click
       3.times do
         name = Faker::Name.name
         find('input', class: 'cardCreateInput', visible: true).set(name)

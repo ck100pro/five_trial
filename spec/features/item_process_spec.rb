@@ -8,7 +8,7 @@ RSpec.feature "ItemProcess", type: :feature, js: true do
     fill_in "board_title", with: "測試board新增"
     click_button "建立看板"
     sleep(1)
-    
+
     expect(page).to have_current_path(board_path(Board.last.id))
     expect(Board.last.title).to eq "測試board新增"
   end
@@ -19,7 +19,9 @@ RSpec.feature "ItemProcess", type: :feature, js: true do
     context "list create" do
       scenario "create success" do
         visit board_path(board.id)
+
         number = 0
+        
         click_button "listCreateButton"
         3.times {
           name = Faker::Name.name
@@ -56,6 +58,7 @@ RSpec.feature "ItemProcess", type: :feature, js: true do
 
       scenario "updte success" do
         visit board_path(board.id)
+
         name = Faker::Name.name 
   
         find('span', text: "#{list.title}").click
