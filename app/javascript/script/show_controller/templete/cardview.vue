@@ -1,9 +1,8 @@
 <template>
   <div @click.stop class="max-h-68 overflow-auto">
-    <div v-for="value, index in cardItem" :key="value.id" id="helloword" class="mb-2">
+    <div v-for="value, index in cardItem" :key="value.id" class="mb-2">
       <span
-        :id='"card-item-" + index'
-        @click="test"
+        :id="'card-item-' + index"
         class="card-item block h-32 w-full cursor-pointer border-dashed border-2"
       >{{value.title}}</span>
       <i @click="cardDelete(index)" ref="cardDelete" class="cardDelete fas fa-times cursor-pointer"></i>
@@ -13,21 +12,19 @@
 
 <script>
 export default {
-  props: ["cardItem", "listIndex", "listId"],
+  props: ["cardItem", "listItem"],
   methods: {
-    test: function(event) {
-      this.$refs.cardDelete.indexOf(event);
-    },
     cardDelete: function(index) {
+      console.log(this.listItem);
       let that = this;
       let cardId = this.cardItem[index].id;
-      let url =
-        location.pathname + `/lists/${this.listId}/cards/${cardId}.json`;
+      let url = `/cards/${cardId}.json`;
       axios
         .delete(`${url}`, {})
         .then(function(response) {
+          let listIndex = that.listItem.listIndex;
           let listAndCardIndex = {
-            listIndex: `${that.listIndex}`,
+            listIndex: `${listIndex}`,
             cardIndex: `${index}`
           };
           that.$store.commit("getAllItem/deleteCard", listAndCardIndex);

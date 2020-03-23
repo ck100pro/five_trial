@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      v-show="cardViewController != listItem.index"
+      v-show="cardViewController != listItem.listIndex"
       class="h-8 w-64 border-black border-solid border-2 rounded"
     >
       <span
