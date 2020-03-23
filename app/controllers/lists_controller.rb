@@ -32,7 +32,7 @@ private
   def find_list
     @list = List.find(params[:id])
   end
-#deal_with_params
+#permit_with_params
   def list_params
     params.require(:list).permit(:title)
   end

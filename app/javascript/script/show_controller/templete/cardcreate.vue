@@ -7,14 +7,19 @@
       <span
         @click="cardCreateButton"
         class="cardCreateButton block h-full w-full cursor-pointer"
-      >新增卡片</span>
+      >新增文章</span>
     </div>
     <div
       v-show="cardViewController == listItem.index"
       class="h-8 w-64 border-black border-solid border-2 rounded"
     >
-      <input v-model="cardTitle" ref="cardCreateInput" class="cardCreateInput h-full w-full" type="text" />
-      <button @click="cardCreate" name="cardSendCreate">新增卡片</button>
+      <input
+        v-model="cardTitle"
+        ref="cardCreateInput"
+        class="cardCreateInput h-full w-full"
+        type="text"
+      />
+      <button @click="cardCreate" name="cardSendCreate">建立文章</button>
     </div>
   </div>
 </template>
@@ -24,7 +29,7 @@ import { mapState } from "vuex";
 export default {
   data: () => {
     return {
-      cardTitle: null,
+      cardTitle: null
     };
   },
   props: ["listItem"],
