@@ -8,7 +8,7 @@ class CardsController < ApplicationController
       if @card.save
         format.json {render :json => create_sucess_to_json, status: 200}
       else
-        format.json {render :json => error_message(card), status: 400}
+        format.json {render :json => card_error_messages, status: 400}
       end
     end
   end

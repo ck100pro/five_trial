@@ -57,8 +57,8 @@ export default {
           that.$store.commit("addMessages/addMessage", "文章新增成功");
         })
         .catch(function(error) {
-          console.log(error.response)
-          that.$store.commit("addMessages/addMessage", "Card新增失敗");
+          let errorMessage = error.response.data.title.toString()
+          that.$store.commit("addMessages/addMessage", errorMessage);
         })
         .then(function() {
           that.cardTitle = null;
