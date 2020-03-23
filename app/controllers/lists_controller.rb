@@ -3,12 +3,12 @@ class ListsController < ApplicationController
   before_action :find_list, only: [:update]
   
   def create
-    list = @board.lists.build(list_params)
+    @list = @board.lists.build(list_params)
     respond_to do |format|
-      if list.save
-        format.json {render :json => list_create_success(list), status: 200}
+      if @list.save
+        format.json {render :json => list_create_success, status: 200}
       else
-        format.json {render :json => list_error_message(list), status: 400}
+        format.json {render :json => list_error_messages, status: 400}
       end
     end
   end
@@ -38,13 +38,12 @@ private
     params.require(:list).permit(:title)
   end
 
-  def list_create_success(list)
-    card = {card: []}
-    list.as_json(only: [:id, :title]).merge(card)
+  def list_create_success
+    @list.create_sucess_to_json
   end
 
-  def list_error_message(list)
-    list.errors.messages
+  def list_error_messages
+    @list.errors.messages
   end
 
   def list_update(updatelist)

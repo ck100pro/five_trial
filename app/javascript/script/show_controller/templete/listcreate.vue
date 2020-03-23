@@ -53,11 +53,13 @@ export default {
           }
         })
         .then(function(response) {
+          let successMessage = response.data.messages
           that.$store.commit("getAllItem/addList", response);
-          that.$store.commit("addMessages/addMessage", "List新增成功");
+          that.$store.commit("addMessages/addMessage", successMessage);
         })
         .catch(function(error) {
-          that.$store.commit("addMessages/addMessage", "List新增失敗");
+          let errorMessage = error.response.data.title.toString()
+          that.$store.commit("addMessages/addMessage", errorMessage);
         })
         .then(function() {
           that.listTitle = "";

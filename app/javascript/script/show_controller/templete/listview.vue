@@ -71,6 +71,7 @@ export default {
           that.$store.commit("addMessages/addMessage", "List-Update成功");
         })
         .catch(function(error) {
+          console.log(error.response)
           that.$store.commit("addMessages/addMessage", "List-Update失敗");
         })
         .then(function() {
