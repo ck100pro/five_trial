@@ -28,7 +28,7 @@ export default {
             cardIndex: `${index}`
           };
           that.$store.commit("getAllItem/deleteCard", listAndCardIndex);
-          that.$store.commit("addMessages/addMessage", "Card刪除成功");
+          that.$store.commit("addMessages/addMessage", "文章刪除成功");
         })
         .then(function(error) {
           //暫定不處理，Rails端的驗證還沒處理好

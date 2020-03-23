@@ -7,6 +7,8 @@ RSpec.feature "ItemProcess", type: :feature, js: true do
     click_button "新增看板"
     fill_in "board_title", with: "測試board新增"
     click_button "建立看板"
+    sleep(1)
+    
     expect(page).to have_current_path(board_path(Board.last.id))
     expect(Board.last.title).to eq "測試board新增"
   end
@@ -24,8 +26,10 @@ RSpec.feature "ItemProcess", type: :feature, js: true do
 
           find("input", class: "listTitleInput", visible: true).set(name)
           click_button "listSendCreate"
-          expect(page.find("span#list-item-#{number}", text: name, visible: true).text).to eq name 
-          expect(page).to have_text("List新增成功")
+          sleep(1)
+
+          expect(page).to have_css("span#list-item-#{number}", text: name, visible: true)
+          expect(page).to have_text("類別建立完成")
           expect(List.last.title).to eq name
           number += 1
         }
@@ -38,8 +42,10 @@ RSpec.feature "ItemProcess", type: :feature, js: true do
         3.times {
           find("input", class: "listTitleInput", visible: true).set("")
           click_button "listSendCreate"
-          expect(page.has_css?('span#list-item-0', visible: true)).to be_falsey
-          expect(page).to have_text("List新增失敗")
+          sleep(1)
+
+          expect(page).not_to have_css('span#list-item-0', visible: true)
+          expect(page).to have_text("類別名稱不能空白")
           expect(List.count).to eq 0
         }
       end
@@ -47,15 +53,17 @@ RSpec.feature "ItemProcess", type: :feature, js: true do
 
     context "list update" do
       let!(:list) { create(:list, :board_id => board.id) }
-      let!(:name) { Faker::Name.name }
+
       scenario "updte success" do
         visit board_path(board.id)
+        name = Faker::Name.name 
   
         find('span', text: "#{list.title}").click
         find('input').set(name).send_keys(:enter)
+        sleep(1)
         
-        expect(page.find("span#list-item-0", text: name, visible: true).text).to eq name 
-        expect(page).to have_text("List-Update成功")
+        expect(page).to have_css("span#list-item-0", text: name, visible: true)
+        expect(page).to have_text("類別名稱更新完成")
         expect(list.reload.title).to eq name
       end
   
@@ -64,8 +72,10 @@ RSpec.feature "ItemProcess", type: :feature, js: true do
   
         find('span', text: "#{list.title}").click
         find('input').set(" ").send_keys(:enter)
-        expect(page.find("span#list-item-0", text: list.title, visible: true).text).to eq list.title
-        expect(page).to have_text("List-Update失敗")
+        sleep(1)
+
+        expect(page).to have_css("span#list-item-0", text: list.title, visible: true)
+        expect(page).to have_text("類別名稱不能空白")
         expect(list.reload.title).not_to eq ""
       end
     end
@@ -78,14 +88,16 @@ RSpec.feature "ItemProcess", type: :feature, js: true do
     scenario "create success" do
       visit board_path(board.id)
 
-      find('span', class: "cardCreateButton", text: "新增卡片", visible: true).click
+      find('span', class: "cardCreateButton", text: "新增文章", visible: true).click
       3.times {
         name = Faker::Name.name
 
         find('input', class: "cardCreateInput", visible: true).set(name)
         click_button "cardSendCreate"
-        expect(page.find("span#card-item-0", text: name, visible: true).text).to eq name
-        expect(page).to have_text("Card新增成功")
+        sleep(1)
+
+        expect(page).to have_css("span#card-item-0", text: name, visible: true)
+        expect(page).to have_text("文章新增成功")
         expect(Card.last.title).to eq name
       }
     end
@@ -93,12 +105,14 @@ RSpec.feature "ItemProcess", type: :feature, js: true do
     scenario "create fail" do
       visit board_path(board.id)
 
-      find('span', class: "cardCreateButton" , text: "新增卡片", visible: true).click
+      find('span', class: "cardCreateButton" , text: "新增文章", visible: true).click
       3.times {
         find('input', class: "cardCreateInput", visible: true).set("")
         click_button "cardSendCreate"
-        expect(page.has_css?('span#card-item-0', text: "" ,visible: true)).to be_falsey
-        expect(page).to have_text("Card新增失敗")
+        sleep(1)
+
+        expect(page).not_to have_css('span#card-item-0', text: "" ,visible: true)
+        expect(page).to have_text("文章名稱不能空白")
         expect(Card.count).to eq 0
       }
     end
@@ -109,8 +123,10 @@ RSpec.feature "ItemProcess", type: :feature, js: true do
         visit board_path(board.id)
   
         find('i', class: "cardDelete", visible: true).click
-        expect(page.has_css?('span#card-item-0', text: card.title, visible: true)).to be_falsey
-        expect(page).to have_text("Card刪除成功")
+        sleep(1)
+
+        expect(page).not_to have_css('span#card-item-0', text: card.title, visible: true)
+        expect(page).to have_text("文章刪除成功")
         expect(Card.find_by(id: card.id)).to be_nil
       end
     end
