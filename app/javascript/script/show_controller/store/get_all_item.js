@@ -10,7 +10,8 @@ const mutations = {
     state.allItem.push(response.data)
   },
   addCard(state, response) {
-    state.allItem[response.index].card.unshift(response)
+    let targetList = state.allItem.find( element => element.id === response.list_id)
+    targetList.card.unshift(response)
   },
   deleteCard(state, response) {
     state.allItem[response.listIndex].card.splice(response.cardIndex, 1)

@@ -8,4 +8,8 @@ class Card < ApplicationRecord
   def to_json
     {id: id, title: title, list_id: list_id}
   end
+
+  def create_sucess_to_json
+    {id: id, title: title, list_id: list_id}
+  end
 end

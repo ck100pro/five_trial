@@ -22,7 +22,7 @@
 
         <card-view :card-item="value.card" :list-index="index" :list-id="value.id"></card-view>
 
-        <card-create :list-item="{index: index, list_id: value.id}"></card-create>
+        <card-create :list-item="{listIndex: index, listId: value.id}"></card-create>
       </div>
     </div>
   </div>

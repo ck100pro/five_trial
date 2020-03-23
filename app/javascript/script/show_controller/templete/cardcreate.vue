@@ -10,7 +10,7 @@
       >新增文章</span>
     </div>
     <div
-      v-show="cardViewController == listItem.index"
+      v-show="cardViewController == listItem.listIndex"
       class="h-8 w-64 border-black border-solid border-2 rounded"
     >
       <input
@@ -37,15 +37,14 @@ export default {
     cardCreateButton: function() {
       this.$store.commit(
         "cardCreateViewController/cardCreateViewController",
-        this.listItem.index
+        this.listItem.listIndex
       );
       this.$nextTick(() => {
         this.$refs.cardCreateInput.focus();
       });
     },
     cardCreate: function(event, index) {
-      let url =
-        location.pathname + `/lists/${this.listItem.list_id}/cards.json`;
+      let url = `/lists/${this.listItem.listId}/cards.json`;
       let that = this;
       axios
         .post(`${url}`, {
@@ -54,12 +53,11 @@ export default {
           }
         })
         .then(function(response) {
-          let cardData = Object.assign(response.data, that.listItem);
-          console.log(cardData);
-          that.$store.commit("getAllItem/addCard", cardData);
-          that.$store.commit("addMessages/addMessage", "Card新增成功");
+          that.$store.commit("getAllItem/addCard", response.data);
+          that.$store.commit("addMessages/addMessage", "文章新增成功");
         })
         .catch(function(error) {
+          console.log(error.response)
           that.$store.commit("addMessages/addMessage", "Card新增失敗");
         })
         .then(function() {
