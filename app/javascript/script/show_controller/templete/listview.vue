@@ -20,11 +20,7 @@
           />
         </div>
 
-        <card-view
-          :card-item="value.card"
-          :list-index="index"
-          :list-id="value.id"
-        ></card-view>
+        <card-view :card-item="value.card" :list-index="index" :list-id="value.id"></card-view>
 
         <card-create :list-item="{index: index, list_id: value.id}"></card-create>
       </div>
@@ -64,18 +60,19 @@ export default {
           }
         })
         .then(function(response) {
+          let successMessage = response.data.messages;
           that.$store.commit("getAllItem/listTitleUpdate", {
             index: index,
             title: response.data.title
           });
-          that.$store.commit("addMessages/addMessage", "List-Update成功");
+          that.$store.commit("addMessages/addMessage", successMessage);
         })
         .catch(function(error) {
-          console.log(error.response)
-          that.$store.commit("addMessages/addMessage", "List-Update失敗");
+          let errorMessage = error.response.data.title.toString();
+          that.$store.commit("addMessages/addMessage", errorMessage);
         })
         .then(function() {
-          that.listVisibleUpdate = NaN
+          that.listVisibleUpdate = NaN;
         });
     }
   },

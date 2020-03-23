@@ -14,18 +14,17 @@ class ListsController < ApplicationController
   end
 
   def update
-    @list.update(list_params)
-
     respond_to do |format|
       if @list.update(list_params)
-        format.json {render :json => list_update(@list), status: 200}
+        format.json {render :json => list_update_success, status: 200}
       else
-        format.json {render :json => list_error_message(@list), status: 400}
+        format.json {render :json => list_error_messages, status: 400}
       end
     end
   end
 
 private
+#find_instance
   def find_board
     @board = Board.find(params[:board_id])
   end
@@ -33,20 +32,21 @@ private
   def find_list
     @list = List.find(params[:id])
   end
-
+#deal_with_params
   def list_params
     params.require(:list).permit(:title)
   end
 
+#action_messages_success
   def list_create_success
     @list.create_sucess_to_json
   end
 
+  def list_update_success
+    @list.update_sucess_to_json
+  end
+#action_messages_errors
   def list_error_messages
     @list.errors.messages
-  end
-
-  def list_update(updatelist)
-    return updatelist.as_json(only: [:id, :title])
   end
 end

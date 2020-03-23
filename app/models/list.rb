@@ -13,4 +13,9 @@ class List < ApplicationRecord
   def create_sucess_to_json
     {id: id, title: title, card: [], messages: "類別建立完成"}
   end
+
+  def update_sucess_to_json
+    {id: id, title: title, messages: "類別名稱更新完成"}
+  end
+
 end
