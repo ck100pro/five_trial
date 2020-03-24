@@ -1,3 +1,7 @@
 .board-button{
   @apply w-64 h-20 flex justify-center items-center border-solid border-teal-400 border-2 rounded-lg cursor-pointer
+};
+
+.bg-gray-op{
+  background-color: rgba(0,0,0,.64);
 }
