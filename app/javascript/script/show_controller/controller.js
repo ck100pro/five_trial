@@ -13,6 +13,7 @@ let show = new Vue({
     },
     methods: {
       resetButton: function(event){
+        console.log(event.target.id)
         console.log("正常觸發中")
       }
     },
