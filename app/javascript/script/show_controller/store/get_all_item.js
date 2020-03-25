@@ -23,8 +23,7 @@ const mutations = {
 
 const actions = {
   getAllItem({ commit }) {
-    let path = location.pathname
-    let url = path + ".json"
+    let url = location.pathname + ".json"
     axios.get(`${url}`)
       .then(function (response) {
         commit("addAllItem", response)

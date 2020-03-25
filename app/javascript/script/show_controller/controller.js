@@ -13,8 +13,8 @@ let show = new Vue({
     },
     methods: {
       resetButton: function(event){
-        console.log(event.target.id)
-        console.log("正常觸發中")
+        console.log(event.target.classList)
+        console.log("主畫面元素正常觸發中")
       }
     },
     created: function(){
