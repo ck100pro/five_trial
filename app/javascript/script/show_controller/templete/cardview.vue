@@ -2,7 +2,7 @@
   <div @click.stop class="max-h-68 overflow-auto">
     <div v-for="value, index in cardItem" :key="value.id" class="mb-2">
       <span
-        @click="showCardContent"
+        @click="showCardContent(value.id)"
         :id="'card-item-' + index"
         class="card-item block h-32 w-full cursor-pointer border-dashed border-2"
       >{{value.title}}</span>
@@ -15,8 +15,8 @@
 export default {
   props: ["cardItem", "listItem"],
   methods: {
-    showCardContent: function(){
-
+    showCardContent: function(cardId) {
+      this.$store.dispatch("cardContent/getCardContent", cardId)
     },
     cardDelete: function(index) {
       console.log(this.listItem);

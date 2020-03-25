@@ -1,6 +1,6 @@
 class CardsController < ApplicationController
   before_action :find_list, only: [:create]
-  before_action :find_card, only: [:destroy]
+  before_action :find_card, only: [:show, :destroy]
 
   def create
     @card = @list.cards.build(card_params)
@@ -10,6 +10,12 @@ class CardsController < ApplicationController
       else
         format.json {render :json => card_error_messages, status: 400}
       end
+    end
+  end
+
+  def show
+    respond_to do |format|
+      format.json {render :json => card_content, status: 200}
     end
   end
 
@@ -45,5 +51,9 @@ class CardsController < ApplicationController
 
   def card_error_messages
     @card.errors.messages
+  end
+#card_api
+  def card_content
+    @card.card_content
   end
 end

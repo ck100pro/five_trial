@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_30_132750) do
+ActiveRecord::Schema.define(version: 2020_03_25_095455) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(version: 2020_01_30_132750) do
     t.bigint "list_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.datetime "endtime_at", precision: 6
     t.index ["list_id"], name: "index_cards_on_list_id"
     t.index ["title"], name: "index_cards_on_title"
   end
@@ -38,7 +39,6 @@ ActiveRecord::Schema.define(version: 2020_01_30_132750) do
   create_table "lists", force: :cascade do |t|
     t.string "title", default: "", null: false
     t.integer "position"
-    t.boolean "status", default: true, null: false
     t.bigint "board_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
