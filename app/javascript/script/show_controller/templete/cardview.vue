@@ -16,10 +16,9 @@ export default {
   props: ["cardItem", "listItem"],
   methods: {
     showCardContent: function(cardId) {
-      this.$store.dispatch("cardContent/getCardContent", cardId)
+      this.$store.dispatch("cardContent/getCardContent", cardId);
     },
     cardDelete: function(index) {
-      console.log(this.listItem);
       let that = this;
       let cardId = this.cardItem[index].id;
       let url = `/cards/${cardId}.json`;

@@ -7,7 +7,6 @@ const mutations = {
   cardContent(state, response) {
     state.cardContent = response.data
     state.cardContentView = true
-    console.log(state.cardContent)
   },
   closeContent(stat, response) {
     state.cardContentView = false

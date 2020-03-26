@@ -4,7 +4,7 @@
     @click="closeContent"
     class="windows-card-content w-full h-full left-0 top-0 bg-gray-op fixed flex justify-center items-center"
   >
-    <div @click.stop class="w-78p h-4/5 bg-red-100 bg-black rounded">
+    <div @click="test" @click.stop class="w-78p h-4/5 bg-red-100 bg-black rounded">
       <div class="w-full h-full">
         <div class="windows-header">頭</div>
         <div class="windows-content float-left">中</div>
@@ -14,7 +14,7 @@
             :noClearButton="true"
             :no-value-to-custom-elem="true"
           >
-            <button @click="cardTimeSetting" type="button">時間設定</button>
+            <button type="button">時間設定</button>
           </VueCtkDateTimePicker>
           <p>{{time}}</p>
         </div>
@@ -38,15 +38,18 @@ export default {
     closeContent: function() {
       this.$store.commit("cardContent/closeContent");
     },
-    cardTimeSetting: function() {
-      if (this.cardContent.endtime_at === null) {
-        this.time = null;
-      } else {
-        this.time = "2019-03-27 10:35 pm";
-      }
+    test: function() {
+      console.log(this.$store.state.cardContent.cardContent.endtime_at);
+      console.log(this.cardContent);
+      console.log(this.time);
     }
   },
   computed: mapState("cardContent", ["cardContentView", "cardContent"]),
+  watch: {
+    cardContentView() {
+      this.time = this.$store.state.cardContent.cardContent.endtime_at;
+    }
+  },
   components: {
     VueCtkDateTimePicker
   }
