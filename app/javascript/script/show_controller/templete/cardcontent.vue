@@ -11,6 +11,7 @@
         <div class="windows-sider float-right">
           <VueCtkDateTimePicker
             v-model="time"
+            :format="'YYYY-MM-DD HH:mm'"
             :noClearButton="true"
             :no-value-to-custom-elem="true"
           >
@@ -40,16 +41,33 @@ export default {
     },
     test: function() {
       console.log(this.$store.state.cardContent.cardContent.endtime_at);
-      console.log(this.cardContent);
+      console.log(this.cardId);
       console.log(this.time);
     }
   },
-  computed: mapState("cardContent", ["cardContentView", "cardContent"]),
+  mounted: function() {
+    this.$nextTick(function() {
+      let buttonNow = document.getElementsByClassName("datepicker-button now");
+      let buttonValidate = document.getElementsByClassName(
+        "datepicker-button validate"
+      );
+      let that = this;
+      buttonNow[0].addEventListener("click", function() {
+        that.$store.dispatch("cardContent/updateCardTime", that.time);
+      });
+      buttonValidate[0].addEventListener("click", function() {
+        that.$store.dispatch("cardContent/updateCardTime", that.time);
+      });
+    });
+  },
+  computed: mapState("cardContent", [
+    "cardContentView",
+    "cardContent",
+    "cardId"
+  ]),
   watch: {
     cardContentView() {
-      console.log(this.time)
       this.time = this.$store.state.cardContent.cardContent.endtime_at;
-      console.log(this.time)
     }
   },
   components: {
