@@ -1,4 +1,6 @@
 class CardsController < ApplicationController
+  include HasJsonResponse
+
   before_action :find_list, only: [:create]
   before_action :find_card, only: [:show, :destroy]
 
@@ -6,9 +8,9 @@ class CardsController < ApplicationController
     @card = @list.cards.build(card_params)
     respond_to do |format|
       if @card.save
-        format.json {render :json => create_sucess_to_json, status: 200}
+        format.json {render :json => create_success(@card), status: 200}
       else
-        format.json {render :json => card_error_messages, status: 400}
+        format.json {render :json => messages_errors(@card), status: 400}
       end
     end
   end
@@ -44,14 +46,6 @@ class CardsController < ApplicationController
     params.require(:card).permit(:title)
   end
 
-#action_messages_success
-  def create_sucess_to_json
-    @card.create_sucess_to_json
-  end
-
-  def card_error_messages
-    @card.errors.messages
-  end
 #card_api
   def card_content
     @card.card_content

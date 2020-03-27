@@ -1,4 +1,6 @@
 class ListsController < ApplicationController
+  include HasJsonResponse
+
   before_action :find_board, only: [:create]
   before_action :find_list, only: [:update]
   
@@ -6,9 +8,9 @@ class ListsController < ApplicationController
     @list = @board.lists.build(list_params)
     respond_to do |format|
       if @list.save
-        format.json {render :json => list_create_success, status: 200}
+        format.json {render :json => create_success(@list), status: 200}
       else
-        format.json {render :json => list_error_messages, status: 400}
+        format.json {render :json => messages_errors(@list), status: 400}
       end
     end
   end
@@ -18,7 +20,7 @@ class ListsController < ApplicationController
       if @list.update(list_params)
         format.json {render :json => list_update_success, status: 200}
       else
-        format.json {render :json => list_error_messages, status: 400}
+        format.json {render :json => messages_errors(@list), status: 400}
       end
     end
   end
@@ -39,15 +41,7 @@ private
   end
 
 #action_messages_success
-  def list_create_success
-    @list.create_sucess_to_json
-  end
-
   def list_update_success
-    @list.update_sucess_to_json
-  end
-#action_messages_errors
-  def list_error_messages
-    @list.errors.messages
+    @list.update_success_to_json
   end
 end

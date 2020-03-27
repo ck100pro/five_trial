@@ -47,7 +47,9 @@ export default {
   computed: mapState("cardContent", ["cardContentView", "cardContent"]),
   watch: {
     cardContentView() {
+      console.log(this.time)
       this.time = this.$store.state.cardContent.cardContent.endtime_at;
+      console.log(this.time)
     }
   },
   components: {

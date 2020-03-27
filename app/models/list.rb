@@ -10,11 +10,11 @@ class List < ApplicationRecord
     { id: id, title: title, card: cards }
   end
 
-  def create_sucess_to_json
+  def create_success_to_json
     { id: id, title: title, card: [] }
   end
 
-  def update_sucess_to_json
+  def update_success_to_json
     { id: id, title: title, messages: "類別名稱更新完成" }
   end
 

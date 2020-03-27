@@ -13,7 +13,7 @@ class Card < ApplicationRecord
     {id: id, title: title, endtime_at: endtime_at, list_id: list_id}
   end
 
-  def create_sucess_to_json
+  def create_success_to_json
     {id: id, title: title, list_id: list_id}
   end
 end
