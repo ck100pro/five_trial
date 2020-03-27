@@ -8,18 +8,19 @@ RSpec.describe "Card", type: :model do
     it "create success" do
       name = Faker::Name.name 
 
-      c1 = Card.new(title: name)
-      list.cards = [c1]
+      expect{ Card.create(title: name, list_id: list.id) }.to change { Card.count }.by(1)
+      card = Card.last
 
-      expect(c1).to be_valid
-      expect(Card.last.title).to eq name
-      expect(Card.count).to eq 1
-      expect(list.cards).to include(c1)
+      expect(card).to be_valid
+      expect(card.title).to eq name
+      expect(list.cards).to include(card)
     end
 
     it "create fail" do
-      c1 = Card.new(title: "")
-      expect(c1).to be_invalid
+      card = Card.create(title: "", list_id: list.id)
+
+      expect(card).to be_invalid
+      expect(card.errors[:title]).to be_present
     end
   end
 end

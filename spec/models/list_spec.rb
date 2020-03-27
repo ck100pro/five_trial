@@ -7,19 +7,19 @@ RSpec.describe "List", type: :model do
     it "create success" do
       name = Faker::Name.name 
 
-      l1 = List.new(title: name)
-      board.lists = [l1]
+      expect{ List.create(title: name, board_id: board.id) }.to change { List.count }.by(1)
+      list = List.last
 
-      expect(l1).to be_valid
-      expect(List.last.title).to eq name
-      expect(List.count).to eq 1
-      expect(board.lists).to include(l1)
+      expect(list).to be_valid
+      expect(list.title).to eq name
+      expect(board.lists).to include(list)
     end
 
     it "create fail" do
-      l1 = List.new(title: "")
+      list = List.create(title: "", board_id: board.id)
       
-      expect(l1).to be_invalid
+      expect(list).to be_invalid
+      expect(list.errors[:title]).to be_present
     end
   end
 end
