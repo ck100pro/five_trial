@@ -99,7 +99,8 @@ RSpec.feature "ItemProcess", type: :feature, js: true do
         click_button "cardSendCreate"
         sleep(1)
 
-        expect(page).to have_css("span#card-item-0", text: name, visible: true)
+        expect(page).to have_css("div#card-item-0", visible: true)
+        expect(page).to have_css('span', text: name ,visible: true)
         expect(page).to have_text("文章新增成功")
         expect(Card.last.title).to eq name
       }
@@ -114,7 +115,7 @@ RSpec.feature "ItemProcess", type: :feature, js: true do
         click_button "cardSendCreate"
         sleep(1)
 
-        expect(page).not_to have_css('span#card-item-0', text: "" ,visible: true)
+        expect(page).not_to have_css("div#card-item-0", visible: true)
         expect(page).to have_text("文章名稱不能空白")
         expect(Card.count).to eq 0
       }

@@ -43,7 +43,8 @@ RSpec.feature 'createTimeOrder', type: :feature, js: true do
       end
       
       create_order.reverse.each_with_index do |name, index|
-        expect(page).to have_selector("span#card-item-#{index}", text: name ,visible: false)
+        expect(page).to have_selector("div#card-item-#{index}", visible: true)
+        expect(page).to have_selector("span", text: name, visible: true)
       end
     end
   end
