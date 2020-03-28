@@ -16,21 +16,22 @@ const mutations = {
     state.cardContent = response.data
     state.cardContentView = true
   },
-  closeContent(stat, response) {
+  closeContent(state) {
     state.cardContentView = false
   }
 }
 
 const actions = {
-  getCardContent({ commit }, response) {
-    commit("settingContent", response)
-    axios.get(`/cards/${state.cardId}.json`)
-      .then(function (response) {
-        commit("cardContent", response)
-      });
+  getCardContent({ commit, rootGetters }, response) {
+    console.log(rootGetters["getAllItem/getCardContent"](response))
+    // commit("settingContent", response)
+    // store.getters("getAllItem/getCardContent")
+    // axios.get(`/cards/${state.cardId}.json`)
+    //   .then(function (response) {
+    //     commit("cardContent", response)
+    //   });
   },
   updateCardTime({ commit }, time) {
-
     axios
       .patch(`/cards/${state.cardId}.json`, {
         card: {
@@ -38,7 +39,7 @@ const actions = {
         }
       })
       .then(function (response) {
-        commit("getAllItem/updateCardTime", response.data, {root:true})
+        commit("getAllItem/updateCardTime", response.data, { root: true })
       });
   }
 }

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      v-show="cardViewController != listItem.listIndex"
+      v-show="cardViewController != listIndex"
       class="h-8 w-64 border-black border-solid border-2 rounded"
     >
       <span
@@ -10,7 +10,7 @@
       >新增文章</span>
     </div>
     <div
-      v-show="cardViewController == listItem.listIndex"
+      v-show="cardViewController == listIndex"
       class="h-8 w-64 border-black border-solid border-2 rounded"
     >
       <input
@@ -32,19 +32,19 @@ export default {
       cardTitle: null
     };
   },
-  props: ["listItem"],
+  props: ["listItem", "listIndex"],
   methods: {
     cardCreateButton: function() {
       this.$store.commit(
         "cardCreateViewController/cardCreateViewController",
-        this.listItem.listIndex
+        this.listIndex
       );
       this.$nextTick(() => {
         this.$refs.cardCreateInput.focus();
       });
     },
     cardCreate: function(event, index) {
-      let url = `/lists/${this.listItem.listId}/cards.json`;
+      let url = `/lists/${this.listItem.id}/cards.json`;
       let that = this;
       axios
         .post(`${url}`, {

@@ -11,7 +11,7 @@
 <script>
 import cardViewContent from "./cardviewcontent";
 export default {
-  props: ["cardArray", "listItem"],
+  props: ["cardArray", "listItem", "listIndex"],
   methods: {
     cardDelete: function(index) {
       let that = this;
@@ -20,9 +20,8 @@ export default {
       axios
         .delete(`${url}`, {})
         .then(function(response) {
-          let listIndex = that.listItem.listIndex;
           let listAndCardIndex = {
-            listIndex: `${listIndex}`,
+            listIndex: `${that.listIndex}`,
             cardIndex: `${index}`
           };
           that.$store.commit("getAllItem/deleteCard", listAndCardIndex);

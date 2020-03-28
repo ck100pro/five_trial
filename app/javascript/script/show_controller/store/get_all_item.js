@@ -2,6 +2,16 @@ const state = {
   allItem: undefined
 };
 
+const getters = {
+  getCardContent: function () {
+    return function (response) {
+    // let targetList = state.allItem.find(element => element.id === response.list_id)
+    // let targetCard = targetList.card.find(element => element.id === response.id)
+      console.log(response)
+    }
+  }
+}
+
 const mutations = {
   addAllItem(state, response) {
     state.allItem = response.data
@@ -38,5 +48,5 @@ const actions = {
 
 export default {
   namespaced: true,
-  state, mutations, actions
+  state, mutations, actions, getters
 };
