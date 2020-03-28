@@ -1,11 +1,17 @@
 <template>
   <div @click.stop class="max-h-68 overflow-auto">
     <div v-for="value, index in cardItem" :key="value.id" class="mb-2">
-      <span
+      <div
         @click="showCardContent(value.id)"
         :id="'card-item-' + index"
         class="card-item block h-32 w-full cursor-pointer border-dashed border-2"
-      >{{value.title}}</span>
+      >
+        <span>{{value.title}}</span>
+        <div>
+          <span>{{value.endtime_at}}</span>
+        </div>
+      </div>
+
       <i @click="cardDelete(index)" ref="cardDelete" class="cardDelete fas fa-times cursor-pointer"></i>
     </div>
   </div>
