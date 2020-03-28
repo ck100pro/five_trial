@@ -30,6 +30,7 @@ const actions = {
       });
   },
   updateCardTime({ commit }, time) {
+
     axios
       .patch(`/cards/${state.cardId}.json`, {
         card: {
@@ -37,7 +38,7 @@ const actions = {
         }
       })
       .then(function (response) {
-        console.log(response)
+        commit("getAllItem/updateCardTime", response.data, {root:true})
       });
   }
 }

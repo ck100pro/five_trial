@@ -7,7 +7,7 @@
     <span>{{cardContent.title}}</span>
     <div>
       <i class="far fa-clock"></i>
-      <span>{{cardContent.endtime_at}}</span>
+      <span>{{timeFormat}}</span>
     </div>
   </div>
 </template>
@@ -22,6 +22,11 @@ export default {
         cardIndex: this.cardIndex,
         listIndex: this.listItem.listIndex
       });
+    }
+  },
+  computed: {
+    timeFormat: function(){
+      return this.cardContent.endtime_at
     }
   }
 };

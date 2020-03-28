@@ -10,8 +10,13 @@ const mutations = {
     state.allItem.push(response.data)
   },
   addCard(state, response) {
-    let targetList = state.allItem.find( element => element.id === response.list_id)
+    let targetList = state.allItem.find(element => element.id === response.list_id)
     targetList.card.unshift(response)
+  },
+  updateCardTime(state, response) {
+    let targetList = state.allItem.find(element => element.id === response.list_id)
+    let targetCard = targetList.card.find(element => element.id === response.id)
+    targetCard.endtime_at = response.endtime_at
   },
   deleteCard(state, response) {
     state.allItem[response.listIndex].card.splice(response.cardIndex, 1)

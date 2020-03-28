@@ -14,7 +14,7 @@ class Card < ApplicationRecord
   end
 
   def create_success_to_json
-    {id: id, title: title, list_id: list_id}
+    {id: id, title: title, list_id: list_id, endtime_at: endtime_at}
   end
 
   def time_conversion(endtime_at)
