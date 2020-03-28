@@ -1,16 +1,7 @@
 <template>
   <div @click.stop class="max-h-68 overflow-auto">
-    <div v-for="value, index in cardItem" :key="value.id" class="mb-2">
-      <div
-        @click="showCardContent(value.id)"
-        :id="'card-item-' + index"
-        class="card-item block h-32 w-full cursor-pointer border-dashed border-2"
-      >
-        <span>{{value.title}}</span>
-        <div>
-          <span>{{value.endtime_at}}</span>
-        </div>
-      </div>
+    <div v-for="value, index in cardArray" :key="value.id" class="mb-2">
+      <card-view-content :card-content="value" :card-index="index" :list-item="listItem"></card-view-content>
 
       <i @click="cardDelete(index)" ref="cardDelete" class="cardDelete fas fa-times cursor-pointer"></i>
     </div>
@@ -18,15 +9,13 @@
 </template>
 
 <script>
+import cardViewContent from "./cardviewcontent";
 export default {
-  props: ["cardItem", "listItem"],
+  props: ["cardArray", "listItem"],
   methods: {
-    showCardContent: function(cardId) {
-      this.$store.dispatch("cardContent/getCardContent", cardId);
-    },
     cardDelete: function(index) {
       let that = this;
-      let cardId = this.cardItem[index].id;
+      let cardId = this.cardArray[index].id;
       let url = `/cards/${cardId}.json`;
       axios
         .delete(`${url}`, {})
@@ -43,6 +32,9 @@ export default {
           //暫定不處理，Rails端的驗證還沒處理好
         });
     }
+  },
+  components: {
+    cardViewContent
   }
 };
 </script>

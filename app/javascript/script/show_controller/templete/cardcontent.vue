@@ -11,7 +11,7 @@
         <div class="windows-sider float-right">
           <VueCtkDateTimePicker
             v-model="time"
-            :button-now-translation="'目前時間'"	
+            :button-now-translation="'目前時間'"
             :format="'YYYY-MM-DD HH:mm'"
             :noClearButton="true"
             :no-value-to-custom-elem="true"
@@ -41,10 +41,8 @@ export default {
       this.$store.commit("cardContent/closeContent");
     },
     test: function() {
-      console.log(this.$store.state.cardContent.cardContent.endtime_at);
-      console.log(this.cardId);
-      console.log(this.time);
-      console.log("qdqqdw")
+
+      console.log("qdqqdw");
     }
   },
   mounted: function() {
@@ -65,7 +63,9 @@ export default {
   computed: mapState("cardContent", [
     "cardContentView",
     "cardContent",
-    "cardId"
+    "cardId",
+    "cardIndex",
+    "listIndex"
   ]),
   watch: {
     cardContentView() {

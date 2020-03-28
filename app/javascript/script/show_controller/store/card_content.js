@@ -1,12 +1,16 @@
 const state = {
   cardContentView: false,
   cardContent: null,
-  cardId: null
+  cardId: null,
+  cardIndex: null,
+  listIndex: null
 }
 
 const mutations = {
-  cardId(state, response) {
-    state.cardId = response
+  settingContent(state, response) {
+    state.cardId = response.cardId
+    state.cardIndex = response.cardIndex
+    state.listIndex = response.listIndex
   },
   cardContent(state, response) {
     state.cardContent = response.data
@@ -18,9 +22,9 @@ const mutations = {
 }
 
 const actions = {
-  getCardContent({ commit }, cardId) {
-    commit("cardId", cardId)
-    axios.get(`/cards/${cardId}.json`)
+  getCardContent({ commit }, response) {
+    commit("settingContent", response)
+    axios.get(`/cards/${state.cardId}.json`)
       .then(function (response) {
         commit("cardContent", response)
       });
