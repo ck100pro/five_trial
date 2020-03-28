@@ -13,7 +13,7 @@ const mutations = {
     state.listIndex = response.listIndex
   },
   cardContent(state, response) {
-    state.cardContent = response.data
+    state.cardContent = response
     state.cardContentView = true
   },
   closeContent(state) {
@@ -23,9 +23,9 @@ const mutations = {
 
 const actions = {
   getCardContent({ commit, rootGetters }, response) {
-    console.log(rootGetters["getAllItem/getCardContent"](response))
-    // commit("settingContent", response)
-    // store.getters("getAllItem/getCardContent")
+    let cardContent = rootGetters["getAllItem/getCardContent"](response)
+    commit("settingContent", response)
+    commit("cardContent", cardContent)
     // axios.get(`/cards/${state.cardId}.json`)
     //   .then(function (response) {
     //     commit("cardContent", response)

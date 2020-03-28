@@ -3,11 +3,12 @@ const state = {
 };
 
 const getters = {
-  getCardContent: function () {
+  getCardContent: function (state) {
+    let allItem = state.allItem
     return function (response) {
-    // let targetList = state.allItem.find(element => element.id === response.list_id)
-    // let targetCard = targetList.card.find(element => element.id === response.id)
-      console.log(response)
+      let targetList = allItem.find(element => element.id === response.listId)
+      let targetCard = targetList.card.find(element => element.id === response.cardId)
+      return targetCard
     }
   }
 }

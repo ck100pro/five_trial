@@ -1,1 +1,1 @@
-Time::DATE_FORMATS[:custom] = "%F %H:%M"
+Time::DATE_FORMATS[:custom] = "%Y年%m月%d日 %H時%M分"

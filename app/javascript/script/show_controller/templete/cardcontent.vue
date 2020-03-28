@@ -41,8 +41,7 @@ export default {
       this.$store.commit("cardContent/closeContent");
     },
     test: function() {
-
-      console.log("qdqqdw");
+      console.log(this.cardContent.endtime_at);
     }
   },
   mounted: function() {
@@ -69,7 +68,7 @@ export default {
   ]),
   watch: {
     cardContentView() {
-      this.time = this.$store.state.cardContent.cardContent.endtime_at;
+      this.time = this.cardContent.endtime_at;
     }
   },
   components: {

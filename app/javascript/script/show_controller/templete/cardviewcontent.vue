@@ -19,8 +19,7 @@ export default {
     showCardContent: function() {
       this.$store.dispatch("cardContent/getCardContent", {
         cardId: this.cardContent.id,
-        cardIndex: this.cardIndex,
-        listIndex: this.listItem.listIndex
+        listId: this.listItem.id
       });
     }
   },
