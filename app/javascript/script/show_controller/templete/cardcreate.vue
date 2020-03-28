@@ -57,7 +57,7 @@ export default {
           that.$store.commit("addMessages/addMessage", "文章新增成功");
         })
         .catch(function(error) {
-          let errorMessage = error.response.data.title.toString()
+          let errorMessage = error.response.data.title.toString();
           that.$store.commit("addMessages/addMessage", errorMessage);
         })
         .then(function() {

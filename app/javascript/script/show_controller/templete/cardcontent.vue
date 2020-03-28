@@ -10,7 +10,7 @@
         <div class="windows-content float-left">中</div>
         <div class="windows-sider float-right">
           <VueCtkDateTimePicker
-            v-model="time"
+            v-model="modelTime"
             :button-now-translation="'目前時間'"
             :format="'YYYY-MM-DD HH:mm'"
             :noClearButton="true"
@@ -18,7 +18,7 @@
           >
             <button type="button">時間設定</button>
           </VueCtkDateTimePicker>
-          <p>{{time}}</p>
+          <p>{{viewTime}}</p>
         </div>
       </div>
     </div>
@@ -33,7 +33,8 @@ import { mapState } from "vuex";
 export default {
   data: function() {
     return {
-      time: null
+      modelTime: null,
+      viewTime: null
     };
   },
   methods: {
@@ -41,7 +42,7 @@ export default {
       this.$store.commit("cardContent/closeContent");
     },
     test: function() {
-      console.log(this.cardContent.endtime_at);
+      console.log(this.cardContent);
     }
   },
   mounted: function() {
@@ -52,10 +53,10 @@ export default {
       );
       let that = this;
       buttonNow[0].addEventListener("click", function() {
-        that.$store.dispatch("cardContent/updateCardTime", that.time);
+        that.$store.dispatch("cardContent/updateCardTime", that.modelTime);
       });
       buttonValidate[0].addEventListener("click", function() {
-        that.$store.dispatch("cardContent/updateCardTime", that.time);
+        that.$store.dispatch("cardContent/updateCardTime", that.modelTime);
       });
     });
   },
@@ -68,7 +69,15 @@ export default {
   ]),
   watch: {
     cardContentView() {
-      this.time = this.cardContent.endtime_at;
+      if (this.cardContentView === true) {
+        this.modelTime = this.cardContent.endtime_at
+        this.viewTime = this.cardContent.endtime_at
+      } else {
+        this.modelTime = null;
+      }
+    },
+    'cardContent.endtime_at'() {
+      this.viewTime = this.cardContent.endtime_at
     }
   },
   components: {
