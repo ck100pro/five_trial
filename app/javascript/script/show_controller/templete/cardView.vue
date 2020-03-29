@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import cardViewContent from "./cardviewcontent";
+import cardViewContent from "./cardViewContent";
 export default {
   props: ["cardArray", "listItem", "listIndex"],
   methods: {

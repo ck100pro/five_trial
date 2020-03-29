@@ -2,22 +2,29 @@
   <div class="flex">
     <div v-for="value, index in allItem" :key="value.id" class="mr-2 p-1">
       <div class="bg-pink-200">
-        <div class="h-8 w-64 border-black border-solid border-2 rounded">
-          <span
-            @click="listUpdateButton(index)"
-            v-show="listVisibleUpdate != index"
-            :id="'list-item-' + index"
-            class="block h-full w-full cursor-pointer"
-          >{{value.title}}</span>
-          <input
-            @keydown.enter="listTitleUpdate(index,value)"
-            @blur="listHiddenInput"
-            v-show="listVisibleUpdate == index"
-            :value="value.title"
-            ref="listUpdateInput"
-            type="text"
-            class="block h-full w-full cursor-pointer"
-          />
+        <div class="h-8 w-64 flex border-black border-solid border-2 rounded">
+          <div class="h-full w-11/12">
+            <span
+              @click="listUpdateButton(index)"
+              v-show="listVisibleUpdate != index"
+              :id="'list-item-' + index"
+              class="block h-full w-full cursor-pointer"
+            >{{value.title}}</span>
+            <input
+              @keydown.enter="listTitleUpdate(index,value)"
+              @blur="listHiddenInput"
+              v-show="listVisibleUpdate == index"
+              :value="value.title"
+              ref="listUpdateInput"
+              type="text"
+              class="block h-full w-full"
+            />
+          </div>
+          <div class="h-full w-1/12 flex justify-center items-center m-auto">
+            <div class="">
+              <i @click="position"  class="fas fa-align-center cursor-pointer"></i>
+            </div>
+          </div>
         </div>
 
         <card-view :card-array="value.card" :list-item="value" :list-index="index"></card-view>
@@ -29,8 +36,8 @@
 </template>
 
 <script>
-import CardView from "./cardview.vue";
-import CardCreate from "./cardcreate.vue";
+import CardView from "./cardView.vue";
+import CardCreate from "./cardCreate.vue";
 import { mapState } from "vuex";
 
 export default {
@@ -74,6 +81,11 @@ export default {
         .then(function() {
           that.listVisibleUpdate = NaN;
         });
+    },
+    position: function(event){
+      console.log(event.target)
+      console.log(event.target.offsetTop)
+      console.log(event.target.offsetLeft)
     }
   },
   computed: mapState("getAllItem", ["allItem"]),

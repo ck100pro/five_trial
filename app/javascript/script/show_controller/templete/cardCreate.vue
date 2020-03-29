@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      v-show="cardViewController != listIndex"
+      v-show="cardCreateItem != listIndex"
       class="h-8 w-64 border-black border-solid border-2 rounded"
     >
       <span
@@ -10,7 +10,7 @@
       >新增文章</span>
     </div>
     <div
-      v-show="cardViewController == listIndex"
+      v-show="cardCreateItem == listIndex"
       class="h-8 w-64 border-black border-solid border-2 rounded"
     >
       <input
@@ -36,7 +36,7 @@ export default {
   methods: {
     cardCreateButton: function() {
       this.$store.commit(
-        "cardCreateViewController/cardCreateViewController",
+        "hiddenItemController/cardCreateItem",
         this.listIndex
       );
       this.$nextTick(() => {
@@ -66,6 +66,6 @@ export default {
         });
     }
   },
-  computed: mapState("cardCreateViewController", ["cardViewController"])
+  computed: mapState("hiddenItemController", ["cardCreateItem"])
 };
 </script>>

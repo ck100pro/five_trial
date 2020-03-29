@@ -1,8 +1,8 @@
 import store from "./store"
 import { mapState } from "vuex"
-import ListView from "./templete/listview.vue"
-import ListCreate from "./templete/listcreate.vue"
-import CardContent from "./templete/cardcontent.vue"
+import ListView from "./templete/listView.vue"
+import ListCreate from "./templete/listCreate.vue"
+import CardContent from "./templete/cardContent.vue"
 
 document.addEventListener('DOMContentLoaded', () => {
 let show = new Vue({

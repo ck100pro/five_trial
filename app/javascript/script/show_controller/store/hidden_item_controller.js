@@ -1,11 +1,12 @@
 const state = {
-  cardViewController: NaN
+  cardCreateItem: NaN,
+  listActionItem: false
 }
 
 const mutations = {
-  cardCreateViewController(state, response) {
+  cardCreateItem(state, response) {
     console.log(response)
-    state.cardViewController = response
+    state.cardCreateItem = response
   }
 }
 
