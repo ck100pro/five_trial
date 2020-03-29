@@ -1,15 +1,21 @@
 const state = {
   cardCreateItem: NaN,
-  listActionItem: false
+  listActionMenu: {
+    view: false,
+    listId: NaN,
+    offectTop: 0,
+    offectLeft: 0
+  }
 }
 
 const mutations = {
   cardCreateItem(state, response) {
-    console.log(response)
     state.cardCreateItem = response
+  },
+  listActionMenu(state, response) {
+    state.listActionMenu = response
   }
 }
-
 export default {
   namespaced: true,
   state, mutations

@@ -3,6 +3,7 @@ import { mapState } from "vuex"
 import ListView from "./templete/listView.vue"
 import ListCreate from "./templete/listCreate.vue"
 import CardContent from "./templete/cardContent.vue"
+import listActionItem from "./templete/listActionItem.vue"
 
 document.addEventListener('DOMContentLoaded', () => {
 let show = new Vue({
@@ -24,7 +25,8 @@ let show = new Vue({
     components: {
       ListView,
       ListCreate,
-      CardContent
+      CardContent,
+      listActionItem
     }
   })
 })

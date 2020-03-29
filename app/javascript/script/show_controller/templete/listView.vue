@@ -21,8 +21,11 @@
             />
           </div>
           <div class="h-full w-1/12 flex justify-center items-center m-auto">
-            <div class="">
-              <i @click="position"  class="fas fa-align-center cursor-pointer"></i>
+            <div class>
+              <i
+                @click="listActionController($event, value)"
+                class="fas fa-align-center cursor-pointer"
+              ></i>
             </div>
           </div>
         </div>
@@ -82,10 +85,17 @@ export default {
           that.listVisibleUpdate = NaN;
         });
     },
-    position: function(event){
-      console.log(event.target)
-      console.log(event.target.offsetTop)
-      console.log(event.target.offsetLeft)
+    listActionController: function(event, value) {
+      let offectTop = event.target.offsetTop;
+      let offectLeft = event.target.offsetLeft;
+      let listId = value.id;
+      this.$store.commit("hiddenItemController/listActionMenu", {
+        view: true,
+        listId: listId,
+        offectTop: offectTop,
+        offectLeft: offectLeft,
+        
+      });
     }
   },
   computed: mapState("getAllItem", ["allItem"]),
