@@ -18,6 +18,6 @@ class Card < ApplicationRecord
   end
 
   def time_conversion(endtime_at)
-    (endtime_at != nil)? endtime_at.to_s(:custom):""
+    (endtime_at != nil) ? endtime_at.to_s(:custom) : ""
   end
 end

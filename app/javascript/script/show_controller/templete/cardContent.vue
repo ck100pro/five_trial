@@ -47,16 +47,20 @@ export default {
   },
   mounted: function() {
     this.$nextTick(function() {
-      let buttonNow = document.getElementsByClassName("datepicker-button now");
-      let buttonValidate = document.getElementsByClassName(
-        "datepicker-button validate"
-      );
+      let registeredButton = [
+        "datepicker-button validate",
+        "datepicker-button now"
+      ];
       let that = this;
-      buttonNow[0].addEventListener("click", function() {
-        that.$store.dispatch("cardContent/updateCardTime", that.modelTime);
-      });
-      buttonValidate[0].addEventListener("click", function() {
-        that.$store.dispatch("cardContent/updateCardTime", that.modelTime);
+      registeredButton.forEach(btnClassName => {
+        let btns = document.getElementsByClassName(btnClassName);
+        if (btns.length === 1) {
+          btns[0].addEventListener("click", () => {
+            that.$store.dispatch("cardContent/updateCardTime", that.modelTime);
+          });
+        } else {
+          alert("class命名重複，防爆偵錯請看cardContent檔進行除錯")
+        }
       });
     });
   },
@@ -70,14 +74,14 @@ export default {
   watch: {
     cardContentView() {
       if (this.cardContentView === true) {
-        this.modelTime = this.cardContent.endtime_at
-        this.viewTime = this.cardContent.endtime_at
+        this.modelTime = this.cardContent.endtime_at;
+        this.viewTime = this.cardContent.endtime_at;
       } else {
         this.modelTime = null;
       }
     },
-    'cardContent.endtime_at'() {
-      this.viewTime = this.cardContent.endtime_at
+    "cardContent.endtime_at"() {
+      this.viewTime = this.cardContent.endtime_at;
     }
   },
   components: {

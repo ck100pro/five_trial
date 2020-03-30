@@ -86,15 +86,16 @@ export default {
         });
     },
     listActionController: function(event, value) {
-      let offectTop = event.target.offsetTop;
-      let offectLeft = event.target.offsetLeft;
+      let {offsetTop, offsetLeft} = event.target
       let listId = value.id;
+      console.log(offsetTop)
+      console.log(offsetLeft)
+
       this.$store.commit("hiddenItemController/listActionMenu", {
         view: true,
         listId: listId,
-        offectTop: offectTop,
-        offectLeft: offectLeft,
-        
+        offsetTop: offsetTop,
+        offsetLeft: offsetLeft,
       });
     }
   },

@@ -3,8 +3,8 @@ const state = {
   listActionMenu: {
     view: false,
     listId: NaN,
-    offectTop: 0,
-    offectLeft: 0
+    offsetTop: 0,
+    offsetLeft: 0
   }
 }
 
@@ -13,6 +13,7 @@ const mutations = {
     state.cardCreateItem = response
   },
   listActionMenu(state, response) {
+    console.log("1")
     state.listActionMenu = response
   }
 }

@@ -10,7 +10,7 @@
       >新增文章</span>
     </div>
     <div
-      v-show="cardCreateItem == listIndex"
+      v-show="cardCreateItem === listIndex"
       class="h-8 w-64 border-black border-solid border-2 rounded"
     >
       <input
