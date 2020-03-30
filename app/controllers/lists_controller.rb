@@ -8,9 +8,9 @@ class ListsController < ApplicationController
     @list = @board.lists.build(list_params)
     respond_to do |format|
       if @list.save
-        format.json {render :json => create_success(@list), status: 200}
+        format.json {render json: create_success(@list), status: 200}
       else
-        format.json {render :json => messages_errors(@list), status: 400}
+        format.json {render json: messages_errors(@list), status: 400}
       end
     end
   end
@@ -18,9 +18,9 @@ class ListsController < ApplicationController
   def update
     respond_to do |format|
       if @list.update(list_params)
-        format.json {render :json => list_update_success, status: 200}
+        format.json {render json: list_update_success, status: 200}
       else
-        format.json {render :json => messages_errors(@list), status: 400}
+        format.json {render json: messages_errors(@list), status: 400}
       end
     end
   end
