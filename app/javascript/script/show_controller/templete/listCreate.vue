@@ -54,10 +54,11 @@ export default {
         })
         .then(function(response) {
           that.$store.commit("getAllItem/addList", response);
-          that.$store.commit("addMessages/addMessage", "List新增成功");
+          that.$store.commit("addMessages/addMessage", "類別建立完成");
         })
         .catch(function(error) {
-          that.$store.commit("addMessages/addMessage", "List新增失敗");
+          let errorMessage = error.response.data.title.toString();
+          that.$store.commit("addMessages/addMessage", errorMessage);
         })
         .then(function() {
           that.listTitle = "";

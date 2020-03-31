@@ -1,7 +1,9 @@
 import store from "./store"
 import { mapState } from "vuex"
-import ListView from "./templete/listview.vue"
-import ListCreate from "./templete/listcreate.vue"
+import ListView from "./templete/listView.vue"
+import ListCreate from "./templete/listCreate.vue"
+import CardContent from "./templete/cardContent.vue"
+import listActionItem from "./templete/listActionItem.vue"
 
 document.addEventListener('DOMContentLoaded', () => {
 let show = new Vue({
@@ -12,7 +14,8 @@ let show = new Vue({
     },
     methods: {
       resetButton: function(event){
-        console.log("正常觸發中")
+        console.log(event.target.classList)
+        console.log("主畫面元素正常觸發中")
       }
     },
     created: function(){
@@ -21,7 +24,9 @@ let show = new Vue({
     computed: mapState('addMessages', ['messages']),
     components: {
       ListView,
-      ListCreate
+      ListCreate,
+      CardContent,
+      listActionItem
     }
   })
 })

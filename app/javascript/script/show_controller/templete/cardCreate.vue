@@ -1,20 +1,25 @@
 <template>
   <div>
     <div
-      v-show="cardViewController != listItem.index"
+      v-show="cardCreateItem != listIndex"
       class="h-8 w-64 border-black border-solid border-2 rounded"
     >
       <span
         @click="cardCreateButton"
         class="cardCreateButton block h-full w-full cursor-pointer"
-      >新增卡片</span>
+      >新增文章</span>
     </div>
     <div
-      v-show="cardViewController == listItem.index"
+      v-show="cardCreateItem === listIndex"
       class="h-8 w-64 border-black border-solid border-2 rounded"
     >
-      <input v-model="cardTitle" ref="cardCreateInput" class="cardCreateInput h-full w-full" type="text" />
-      <button @click="cardCreate" name="cardSendCreate">新增卡片</button>
+      <input
+        v-model="cardTitle"
+        ref="cardCreateInput"
+        class="cardCreateInput h-full w-full"
+        type="text"
+      />
+      <button @click="cardCreate" name="cardSendCreate">建立文章</button>
     </div>
   </div>
 </template>
@@ -24,23 +29,22 @@ import { mapState } from "vuex";
 export default {
   data: () => {
     return {
-      cardTitle: null,
+      cardTitle: null
     };
   },
-  props: ["listItem"],
+  props: ["listItem", "listIndex"],
   methods: {
     cardCreateButton: function() {
       this.$store.commit(
-        "cardCreateViewController/cardCreateViewController",
-        this.listItem.index
+        "hiddenItemController/cardCreateItem",
+        this.listIndex
       );
       this.$nextTick(() => {
         this.$refs.cardCreateInput.focus();
       });
     },
     cardCreate: function(event, index) {
-      let url =
-        location.pathname + `/lists/${this.listItem.list_id}/cards.json`;
+      let url = `/lists/${this.listItem.id}/cards.json`;
       let that = this;
       axios
         .post(`${url}`, {
@@ -49,13 +53,12 @@ export default {
           }
         })
         .then(function(response) {
-          let cardData = Object.assign(response.data, that.listItem);
-          console.log(cardData);
-          that.$store.commit("getAllItem/addCard", cardData);
-          that.$store.commit("addMessages/addMessage", "Card新增成功");
+          that.$store.commit("getAllItem/addCard", response.data);
+          that.$store.commit("addMessages/addMessage", "文章新增成功");
         })
         .catch(function(error) {
-          that.$store.commit("addMessages/addMessage", "Card新增失敗");
+          let errorMessage = error.response.data.title.toString();
+          that.$store.commit("addMessages/addMessage", errorMessage);
         })
         .then(function() {
           that.cardTitle = null;
@@ -63,6 +66,6 @@ export default {
         });
     }
   },
-  computed: mapState("cardCreateViewController", ["cardViewController"])
+  computed: mapState("hiddenItemController", ["cardCreateItem"])
 };
 </script>>

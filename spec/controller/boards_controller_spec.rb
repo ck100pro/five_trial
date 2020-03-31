@@ -44,7 +44,8 @@ RSpec.describe BoardsController, type: :controller do
           {
             id: card.id,
             title: card.title,
-            list_id: list.id
+            list_id: list.id,
+            endtime_at: ""
           }.stringify_keys
         ]
       }.stringify_keys]

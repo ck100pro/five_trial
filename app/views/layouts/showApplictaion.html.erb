@@ -1,26 +1,23 @@
 <!DOCTYPE html>
 <html class="h-full">
-  <head>
-    <title>FiveTrial</title>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
 
-    <%= stylesheet_pack_tag 'application', media: 'all'%>
-    <%= javascript_pack_tag 'application'%>
-    <%= javascript_pack_tag 'showApplication'%>
-  </head>
+<head>
+  <title>FiveTrial</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
 
-  <body class="h-full relative">
-    <div class="h-full flex flex-col ">
-      <div>
-        <%= render "shared/navbar" %>
-      </div>
+  <%= stylesheet_pack_tag 'application', media: 'all'%>
+  <%= javascript_pack_tag 'application'%>
+  <%= javascript_pack_tag 'showApplication'%>
+</head>
 
-      <div @click="resetButton" id="controllerShow" class="flex w-full flex-grow bg-teal-200 overflow-x-scroll overflow-y-hidden">
-        <div class="flex">
-          <%= yield %>
-        </div>
-      </div>
+<body class="h-full relative">
+  <div @click="resetButton" id="controllerShow"  class="h-full flex flex-col ">
+    <div>
+      <%= render "shared/navbar" %>
     </div>
-  </body>
+    <%= yield %>
+  </div>
+</body>
+
 </html>
